@@ -9,6 +9,7 @@ $_['text_home']           = 'Home';
 $_['error_name']          = 'Name is required!';
 $_['error_comment']       = 'Comment text is required!';
 // txt
+$_['txt_cancel']           = 'Cancel';
 $_['txt_comm_auto_string'] = 'Pm Image Gallery - Picture %x of %X Filename: %f, Gallery: %g';
 $_['txt_nav_next']         = 'Next page';
 $_['txt_nav_back']         = 'Previous page';
