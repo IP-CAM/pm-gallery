@@ -195,9 +195,11 @@ $i++;
                 if(obj.length > 0){
                   for(i=0; i<obj.length;i++){
                     $("#comments").append('<div class="comment" class="col-sm-12" style="width:' + cwidth + 'px;"><div class="col-sm-12" style="background:#666666;border:1px yellow;"><label class="col-sm-3" style="position:relative;float:left;height:22px;text-align:left;font-weight:bold;color:#ffffff;">' + obj[i]['name'] + '</label><label class="col-sm-2" style="heigth:22px;font-weight:bold;text-align:right;color:#ffffff;">' + obj[i]['date'] + '</label></div><div class=col-sm-12" style="padding:10px;border:1px solid #ffffff;">' + obj[i]['comment'] + '</div></div>');
-                 }
-
-              }
+                  }
+                }
+                if(obj.length == 0){
+                    $("#comments").append('<div class="comment" class="col-sm-12" style="width:' + cwidth + 'px;"><?php echo $txt_vcomm_ncy;?></div>');
+                }
            }
         }
       });
