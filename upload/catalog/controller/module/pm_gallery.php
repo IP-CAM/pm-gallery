@@ -26,21 +26,7 @@ class ControllerModulePMGallery extends Controller {
    
        extract($setting);
 
-		 $data['pm_gallery_module'] = '';
-             if($pm_base){
-                                     
                     $data['pm_gallery_module'] = true;
-                                           
-            }                            
-          $conf = "";
-	      	$conf = $this->model_catalog_pm_gallery->getLanguages($this->config->get('config_language'));
-                                //    $data['link'] = $this->url->link('line/gallery');
-                                     $setup = $this->model_catalog_pm_gallery->getSetup($conf);
-                                   $key = array_keys($setup);
-                                   
-                    for($i=0;$i<count($key);$i++){
-                              $data[$key[$i]] = $setup[$key[$i]];
-                       }
      
                     $data['galleries'] = array();
                     $data['pm_help_text'] = str_replace("\r\n","",$data['pm_help_text']); 
