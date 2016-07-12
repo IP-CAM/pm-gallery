@@ -1,4 +1,4 @@
 # pm-gallery
 Pm Gallery
 
-This is incomplate beta extension.
+This is incomplete beta extension.
