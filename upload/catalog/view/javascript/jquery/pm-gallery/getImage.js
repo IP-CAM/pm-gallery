@@ -267,3 +267,8 @@ function closeImage(){
   $("#fw_blend").empty();
   $("#fw_blend").hide();
 }
+function thePicture(){
+           $("#kiv_share").show();
+           $("#thepicture").slideUp();
+           $("#thepicture").slideDown();
+}
