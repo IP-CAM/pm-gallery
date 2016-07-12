@@ -3,8 +3,7 @@ class ControllerModulePMGallery extends Controller {
 	private $error = array(); 
   private $settings = array();
 
-	public function index($setting) {
-    $this->settings = $setting;
+  public function index($setting) {
     $data = array();
 		$this->language->load('module/pm_gallery');
 
@@ -92,7 +91,7 @@ class ControllerModulePMGallery extends Controller {
 		} else {
 			return $this->load->view('default/template/module/pm_gallery.tpl', $data);
 		}
-	}
+  }
   public function explorer(){
   
         $json = array();
@@ -139,10 +138,6 @@ class ControllerModulePMGallery extends Controller {
        }
        if(empty($this->request->post['comment'])){
           $json['error'] = $this->language->load('error_comment');
-       }
-
-       if($pm_moderate_posts == 1){
-
        }
 
        if($pm_moderate_posts == 1){
