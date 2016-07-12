@@ -83,7 +83,10 @@ class ControllerModulePMGallery extends Controller {
         $json = array();
         $this->load->model('catalog/pm_gallery');
         if(isset($this->request->get['pm_galleries']) && isset($this->request->get['module_id']) && isset($this->request->get['folder_id'])){
-            $json = $this->model_catalog_pm_gallery->explorer($this->request->get);
+       $settings = $this->settings($this->request->post['module_id']);
+
+       extract($settings);
+            $json = $this->model_catalog_pm_gallery->explorer($pm_galleries,$this->request->get);
         }
               $this->response->addHeader('Content-Type: application/json');
               $this->response->setOutput(json_encode($json));
