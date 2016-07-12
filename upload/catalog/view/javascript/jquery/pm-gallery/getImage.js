@@ -1,4 +1,4 @@
-function getImage(module_id,image_info, image_width, image_height, pm_max_pic_height,pm_bord_size,folder_id,image_id,pm_show_image_nav,txt_nav_close){
+function getImage(module_id,image_info, image_width, image_height, pm_max_pic_height,pm_bord_size,folder_id,image_id,pm_show_image_nav,txt_nav_close,txt_nav_download){
   // Fw Blend
   $("#fw_blend").css({"width":"100%"});
   $("#fw_blend").css({"height":"100%"});
@@ -117,7 +117,7 @@ function getImage(module_id,image_info, image_width, image_height, pm_max_pic_he
   $("#kiv_comdiv").css({"margin-top":pm_bord_size+"px"});
 
   // pm_loading
-  $("#fw_blend").append('<img src="catalog/view/javascript/jquery/pm-gallery/image/pm_loading.gif" id="kiv_loading">');
+  $("#fw_blend").append('<img src="catalog/view/javascript/jquery/pm-gallery/image/pm_loading.gif" id="kiv_loading" title="' + txt_nav_download + '">');
   $("#kiv_loading").css({"margin":"-8px 0px 0px -8px"});
   $("#kiv_loading").css({"position":"fixed"});
   $("#kiv_loading").css({"top":"50%"});
