@@ -1,4 +1,4 @@
-function getImage(module_id,image_info, image_width, image_height, pm_max_pic_height,pm_bord_size,folder_id,image_id,pm_show_image_nav){
+function getImage(module_id,image_info, image_width, image_height, pm_max_pic_height,pm_bord_size,folder_id,image_id,pm_show_image_nav,txt_nav_close){
   // Fw Blend
   $("#fw_blend").css({"width":"100%"});
   $("#fw_blend").css({"height":"100%"});
@@ -66,7 +66,7 @@ function getImage(module_id,image_info, image_width, image_height, pm_max_pic_he
   $("#kiv_closebutton").css({"padding":"1px 1px 3px"});
   $("#kiv_closebutton").css({"line-height":"12px"});
   $("#kiv_closebutton").css({"box-shadow":"0px 0px 10px rgb(0, 0, 0)"});
-  $("#kiv_closebutton").append('<img id="pm_close" src="catalog/view/javascript/jquery/pm-gallery/image/pm_nav_close.png" title="Close" onclick="closeImage();">');
+  $("#kiv_closebutton").append('<img id="pm_close" src="catalog/view/javascript/jquery/pm-gallery/image/pm_nav_close.png" title="' + txt_close + '" onclick="closeImage();">');
   $("#pm_close").css({"cursor":"pointer"});
   $("#pm_close").css({"border":"0px"});
   $("#pm_close").css({"margin":"0px 2px 0px 2px"});
