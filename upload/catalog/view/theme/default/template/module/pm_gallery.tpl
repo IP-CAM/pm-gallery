@@ -1,3 +1,35 @@
+<style type="text/css">
+.pm_thumbnail{
+  border:<?php echo $pm_th_bord_size;?>px solid <?php echo $pm_th_bord_color;?>; 
+  width:<?php echo $pm_th_width;?>px;
+  height:<?php echo $pm_th_height;?>px;
+  margin-left:<?php echo $pm_th_margin_left;?>px;
+  z-index:1;
+<?php if($pm_th_radius == 1){?>
+  -webkit-border-radius: <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px;
+  -moz-border-radius: <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px;
+  -khtml-border-radius: <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px;
+  border-radius: <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px
+<?php } ?>
+}
+<?php if($pm_th_title == 1){ ?>
+.thumb_title{
+  height:15px;
+  text-align:center;
+  font-weight:bold;
+}
+<?php } ?>
+.pic > img{
+<?php if($pm_th_radius == 1){?>
+  -webkit-border-radius: <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px;
+  -moz-border-radius: <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px;
+  -khtml-border-radius: <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px;
+  border-radius: <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px <?php echo $pm_th_bord_radius;?>px
+<?php } ?>        
+}
+</style>
+
+
  <div id="gallery-content" class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
            <div id="galleries" class="row">
                 <div id="folder-controller">
