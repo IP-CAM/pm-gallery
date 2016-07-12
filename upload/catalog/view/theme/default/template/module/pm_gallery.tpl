@@ -31,6 +31,15 @@
 
 
  <div id="gallery-content" class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+
+ <?php if($pm_breadcrumbs == 1){?>
+  <ul class="breadcrumb">
+    <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+    <?php } ?>
+  </ul>
+  <?php } ?>
+
            <div id="galleries" class="row">
                 <div id="folder-controller">
                 </div> 
