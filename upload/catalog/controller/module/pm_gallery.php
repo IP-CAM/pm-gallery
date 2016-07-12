@@ -129,7 +129,7 @@ class ControllerModulePMGallery extends Controller {
        if($pm_moderate_posts == 1){
         $address = HTTP_SERVER . $this->request->post['file'];
 
-             $content = sprintf($pm_new_comment,$address,$address);
+             $content = sprintf($this->language->load('txt_new_comment'),$address,$address);
 
       $mail = new Mail();
       $mail->protocol = $this->config->get('config_mail_protocol');
