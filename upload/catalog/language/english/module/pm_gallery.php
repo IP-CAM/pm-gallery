@@ -34,4 +34,6 @@ $_['txt_vcomm_ncy']        = 'No comments yet.';
 $_['txt_vcomm_title']      = 'Comments';
 $_['txt_new_comment']      = 'A new comment has been made for one of your images. Visit <a href="%s">%s2</a> and flip the picture to read all comments for this image.\\nThis is the last comment. This comment is moderated and is not readable in public yet. You have the option publish this comment when you login as admin.';
 
+// Email
+$_['email_subject']        = 'New Comment to Pm Gallery';
 ?>
