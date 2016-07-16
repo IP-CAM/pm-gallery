@@ -1,7 +1,7 @@
  function lourButtons(folder_id,frame_id,frame_height,pm_th_title,txt_nav_maxi,txt_max){
     var height = parseInt(frame_height)+80;
     var bheight = height-46;
-    $('#'+frame_id).append('<div id="test_' + frame_id + '_hide_tb">');
+    $('#'+frame_id).append('<div id="test_' + frame_id + '_hide_tb" onClick="startExplorer(\'' + folder_id + '\',\'' + frame_id + '\',\'' + pm_th_title + '\');"></div>');
     $('#'+frame_id).css({"height": + height + "px"});
     $('#test_'+frame_id + '_hide_tb').css({"position":"relative"}); 
     $('#test_'+frame_id + '_hide_tb').css({"float":"right"});
