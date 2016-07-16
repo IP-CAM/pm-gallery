@@ -15,20 +15,12 @@
     $('#test_'+frame_id + '_hide_tb').css({"padding":"3px"});
     $('#test_'+frame_id + '_hide_tb').show(); 
 
-    $('#test_'+frame_id + '_hide_tb').append('<img id="pm_nav_full" src="catalog/view/javascript/jquery/pm-gallery/image/pm_nav_full.png" onClick="startExplorer(\'' + folder_id + '\',\'' + frame_id + '\',\'' + pm_th_title + '\');" title="'+ txt_nav_maxi + '" alt="' + txt_max + '">'); 
+    $('#test_'+frame_id + '_hide_tb').append('<img id="pm_nav_full" src="catalog/view/javascript/jquery/pm-gallery/image/pm_nav_full.png" title="'+ txt_nav_maxi + '" alt="' + txt_max + '">'); 
     $("#pm_nav_full").css({"cursor":"pointer"});
     $("#pm_nav_full").css({"border":"0px"});
     $("#pm_nav_full").css({"margin":"0px 2px 0px 2px"});
     $("#pm_nav_full").css({"padding-top":"2px"});
     $("#pm_nav_full").css({"display":"inline"});
-/*
-    $('#test_'+frame_id + '_hide_tb').append('<img id="pm_nav_play" src="catalog/view/javascript/jquery/pm-gallery/image/pm_nav_play.png" onClick="slideshow(\'' + module_id + '\',\'' + frame_id + '\');" title="Start slideshow" alt="Slideshow"/>'); 
-    */
-    $("#pm_nav_play").css({"cursor":"pointer"});
-    $("#pm_nav_play").css({"border":"0px"});
-    $("#pm_nav_play").css({"margin":"0px 2px 0px 2px"});
-    $("#pm_nav_play").css({"padding-top":"2px"});
-    $("#pm_nav_play").css({"display":"inline"});
   }
   function closeButtons(frame_height,frame_id){
     $('#test_'+frame_id + '_hide_tb').empty(); 
