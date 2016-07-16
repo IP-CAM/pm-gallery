@@ -1,4 +1,4 @@
- function lourButtons(frame_height,module_id,frame_id){
+ function lourButtons(folder_id,frame_id,frame_height,pm_th_title,txt_nav_maxi,txt_max){
     var height = parseInt(frame_height)+80;
     $('#'+frame_id).append('<div id="test_' + frame_id + '_hide_tb">');
     $('#'+frame_id).css({"height": + height + "px"});
@@ -13,14 +13,15 @@
     $('#test_'+frame_id + '_hide_tb').css({"padding":"1px 3px 3px"});
     $('#test_'+frame_id + '_hide_tb').show(); 
 
-    $('#test_'+frame_id + '_hide_tb').append('<img id="pm_nav_full" src="catalog/view/javascript/jquery/pm-gallery/image/pm_nav_full.png" onClick="startExplorer(\'' + module_id + '\',\'' + frame_id + '\');" title="Gallery to maxim size" alt="Maxim size">'); 
+    $('#test_'+frame_id + '_hide_tb').append('<img id="pm_nav_full" src="catalog/view/javascript/jquery/pm-gallery/image/pm_nav_full.png" onClick="startExplorer(\'' + folder_id + '\',\'' + frame_id + '\',\'' + pm_th_title + '\');" title="'+ txt_nav_maxi + '" alt="' + txt_max + '">'); 
     $("#pm_nav_full").css({"cursor":"pointer"});
     $("#pm_nav_full").css({"border":"0px"});
     $("#pm_nav_full").css({"margin":"0px 2px 0px 2px"});
     $("#pm_nav_full").css({"padding-top":"2px"});
     $("#pm_nav_full").css({"display":"inline"});
-
+/*
     $('#test_'+frame_id + '_hide_tb').append('<img id="pm_nav_play" src="catalog/view/javascript/jquery/pm-gallery/image/pm_nav_play.png" onClick="slideshow(\'' + module_id + '\',\'' + frame_id + '\');" title="Start slideshow" alt="Slideshow"/>'); 
+    */
     $("#pm_nav_play").css({"cursor":"pointer"});
     $("#pm_nav_play").css({"border":"0px"});
     $("#pm_nav_play").css({"margin":"0px 2px 0px 2px"});
