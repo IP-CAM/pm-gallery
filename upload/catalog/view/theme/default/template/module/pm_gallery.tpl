@@ -62,7 +62,7 @@ if($query->num_rows){
 
 <h2 class="gallery"><?php echo $result['title'];?></h2>
   <div class="folder-description"><?php echo !empty($result['description']) ? $result['description']: '';?></div>
-  <div class="pm_gallery col-md-12 col-lg-12 col-xs-12"  title="<?php echo $result['folder'];?>" id="0_<?php echo $i;?>" OnMouseOut="closeButtons('<?php echo $pm_fr_height;?>','0_<?php echo $i;?>');" OnMouseOver="lourButtons('<?php echo $pm_fr_height;?>','<?php echo $module_id;?>','0_<?php echo $i;?>','<?php echo $txt_nav_maxi;?>','<?php echo $txt_max;?>','<?php echo $txt_start_slideshow;?>','<?php echo $txt_slideshow;?>');">
+  <div class="pm_gallery col-md-12 col-lg-12 col-xs-12"  title="<?php echo $result['folder'];?>" id="0_<?php echo $i;?>" OnMouseOut="closeButtons('<?php echo $pm_fr_height;?>','0_<?php echo $i;?>');" OnMouseOver="lourButtons('<?php echo $result['folder_id'];?>','0_<?php echo $i;?>','<?php echo $pm_fr_height;?>','<?php echo $pm_th_title;?>','<?php echo $txt_nav_maxi;?>','<?php echo $txt_max;?>');">
 
 <?php
  
