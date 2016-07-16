@@ -204,6 +204,33 @@ $i++;
         }
       });
 }
+function startExplorer(folder_id,frame_id,pm_th_title){
+  $("body").append('<div id="pm_maindiv"></div>');
+  $("#pm_maindiv").css({"background":"rgb(255, 255, 255) none repeat scroll 0% 0%"});
+  $("#pm_maindiv").css({"position":"fixed"});
+  $("#pm_maindiv").css({"left":"0px"});
+  $("#pm_maindiv").css({"top":"0px"});
+  $("#pm_maindiv").css({"z-index":"100002"});
+  $("#pm_maindiv").css({"overflow-x":"hidden"});
+  $("#pm_maindiv").css({"overflow-y":"auto"});
+  $("#pm_maindiv").css({"display":"block"});
+  $("#pm_maindiv").css({"width":"100%"});
+  $("#pm_maindiv").css({"height":"100%"});
+        $.ajax({
+        url: 'index.php?route=module/pm_gallery/explorer&pm_galleries=<?php echo $pm_galleries;?>&module_id=<?php echo $module_id;?>&folder_id=' + folder_id,
+        dataType: 'json',
+        success: function(json) {
+          var thumbs = $.parseJSON.json;
+             for(var i = 0; i< thumbs.length;i++){   
+            if(pm_th_title == 1){
+              $( "#pm_maindiv" ).append('<div class="pm_thumbnail col-sm-<?php echo $pm_th_per_line;?> col-md-<?php echo $pm_th_per_line;?> col-lg-<?php echo $pm_th_per_line;?> col-xs-12" style="height:auto;padding:0px;background:#ffffff;margin_top:15px;margin-left:<?php echo $pm_th_margin_left;?>px;"><div class="pic" style="width:100%;text-align:center;"><img id="' + frame_id + '_' + i + '"  src="' + thumbs[i][thumb] + '" onclick="getImage(\''+ thumbs[i]['image'] + '\',\''+ thumbs[i]['width'] + '\',\'' + thumbs[i]['height'] + '\',\'<?php echo $pm_max_pic_height;?>\',\'<?php echo $pm_bord_size;?>\',\'' + folder_id + '\',\'' + thumbs[i]['image_id'] + '\',\'<?php echo $pm_show_image_nav;?>\',\'<?php echo $txt_nav_close;?>\',\'<?php echo $txt_nav_download;?>\');" onload="this.style.visibility=\'visible\'" alt="0_0_0" style="width:<?php echo $pm_th_perc_width;?>%;margin-top:10px;"/></div><div class="thumb_title">' + thumbs[i][title] + '</div></div>');            
+            } 
+            if(pm_th_title == 0){                         
+              $( "#pm_maindiv" ).append('<img class="pm_thumbnail" id="' + frame_id + '_' + i + '" src="' + thumbs[i][thumb] + '"  onclick="getImage(\''+ thumbs[i]['image'] + '\',\''+ thumbs[i]['width'] + '\',\'' + thumbs[i]['height'] + '\',\'<?php echo $pm_max_pic_height;?>\',\'<?php echo $pm_bord_size;?>\',\'' + folder_id + '\',\'' + thumbs[i]['image_id'] + '\',\'<?php echo $pm_show_image_nav;?>\',\'<?php echo $txt_nav_close;?>\',\'<?php echo $txt_nav_download;?>\');" class="col-md-<?php echo $pm_th_per_line;?> col-lg-<?php echo $pm_th_per_line;?> col-xs-12" style="width:<?php echo $pm_th_perc_width;?>%; margin-left:<?php echo $pm_th_margin_left;?>px;" onload="this.style.visibility=\'visible\'"  alt="0_0_0" class="pm_thumbnail"/>');   
+            }
+          }
+       }});
+}
 function basename(path) {
     return path.replace(/\\/g,'/').replace( /.*\//, '' );
 }
