@@ -23,6 +23,8 @@ function getImage(module_id,image_info, image_width, image_height, pm_max_pic_he
 
   var height = $("#fw_blend").height();
 
+  var filename = basename(image_info);
+
   var img_height = pm_max_pic_height*height;
   var image = image_info;
   var percent = 100;
@@ -92,16 +94,17 @@ function getImage(module_id,image_info, image_width, image_height, pm_max_pic_he
 
   var sizes = pm_bord_size*2;
 
-  $("#kiv_inshadow").append('<div id="item"><img  id="thepicture" src="' + image_info + '" class="pm_fullimg"></div>');
+  var img_id = filename.replace(/ /, '-').replace(/./,'-');
+  $("#kiv_inshadow").append('<div id="thepicture"><img  id="' + img_id + '" src="' + image_info + '" class="pm_fullimg"></div>');
 
-  $("#thepicture").slideUp();
-  $("#thepicture").slideDown();
-  $("#thepicture").css({"z-index":"10000"});
-  $("#thepicture").css({"margin-left":pm_bord_size+"px"});
-  $("#thepicture").css({"margin-top":pm_bord_size+"px"});
-  $("#thepicture").css({"width": img_width-sizes +"px"});
-  $("#thepicture").css({"height":img_height-sizes +"px"});
-  $("#thepicture").css({"display":"block"});
+  $("#" + img_id).slideUp();
+  $("#" + img_id).slideDown();
+  $("#") + img_id.css({"z-index":"10000"});
+  $("#" + img_id).css({"margin-left":pm_bord_size+"px"});
+  $("#" + img_id).css({"margin-top":pm_bord_size+"px"});
+  $("#" + img_id).css({"width": img_width-sizes +"px"});
+  $("#" + img_id).css({"height":img_height-sizes +"px"});
+  $("#" + img_id).css({"display":"block"});
   // Comdiv 
   $("#kiv_inshadow").append('<div id="kiv_comdiv"></div>');
   $("#kiv_comdiv").css({"position":"fixed"});
@@ -161,9 +164,8 @@ function getImage(module_id,image_info, image_width, image_height, pm_max_pic_he
 
                    $("#kiv_wowdiv").hover(function() {
                       $("#kiv_wowdiv").show();
-                    //  $("#kiv_wowdiv").css({"margin-left": margin-100 +"px"});
                     });
-                    $("#kiv_wowdiv").append('<img src="' + obj['image'] + '" style="width:150px" onload="this.style.visibility=\'visible\'" onclick="getImage(\'' + module_id + '\',\'' + obj['image'] + '\',\'' + obj['width'] + '\',\'' + obj['height'] + '\',\'' + pm_max_pic_height + '\',\'' + pm_bord_size + '\',\'' + folder_id +'\',\'' + obj['image_id'] + '\',\'' + pm_show_image_nav + '\');">');
+                    $("#kiv_wowdiv").html('<img src="' + obj['image'] + '" style="width:150px" onload="this.style.visibility=\'visible\'" onclick="getImage(\'' + module_id + '\',\'' + obj['image'] + '\',\'' + obj['width'] + '\',\'' + obj['height'] + '\',\'' + pm_max_pic_height + '\',\'' + pm_bord_size + '\',\'' + folder_id +'\',\'' + obj['image_id'] + '\',\'' + pm_show_image_nav + '\');">');
               }
            }
            if(json['next']){
@@ -185,10 +187,9 @@ function getImage(module_id,image_info, image_width, image_height, pm_max_pic_he
 
                    $("#kiv_prevdiv").hover(function() {
                       $("#kiv_prevdiv").show();
-                    //  $("#kiv_prevdiv").css({"margin-right": margin-100 +"px"});
                     });
 
-                    $("#kiv_prevdiv").append('<img src="' + obj2['image'] + '" style="width:150px" onload="this.style.visibility=\'visible\'" onclick="getImage(\'' + module_id + '\',\'' + obj2['image'] + '\',\'' + obj2['width'] + '\',\'' + obj2['height'] + '\', \'' + pm_max_pic_height + '\',\'' + pm_bord_size + '\', \'' + folder_id +'\',\'' + obj2['image_id'] + '\', \'' + pm_show_image_nav + '\');">');
+                    $("#kiv_prevdiv").html('<img src="' + obj2['image'] + '" style="width:150px" onload="this.style.visibility=\'visible\'" onclick="getImage(\'' + module_id + '\',\'' + obj2['image'] + '\',\'' + obj2['width'] + '\',\'' + obj2['height'] + '\', \'' + pm_max_pic_height + '\',\'' + pm_bord_size + '\', \'' + folder_id +'\',\'' + obj2['image_id'] + '\', \'' + pm_show_image_nav + '\');">');
                 }
           }
         }
@@ -209,12 +210,9 @@ function getImage(module_id,image_info, image_width, image_height, pm_max_pic_he
   $("#kiv_share").css({"display":"block"});
   $("#kiv_share").css({"top":"0px"});
 
-var filename = basename(image_info);
   $("#kiv_share").append('<img id="pm_nav_close" src="catalog/view/javascript/jquery/pm-gallery/image/pm_nav_close.png" title="Close" onClick="closeImage();">');
   $("#kiv_share").append('<img id="pm_nav_comm" src="catalog/view/javascript/jquery/pm-gallery/image/pm_nav_vcomm.png"  title="Add/See viewer comments" onClick="slide_vcomm(\'' + module_id + '\',\'' + folder_id + '\',\'' + image_id + '\',\'' + image_info + '\',\'' + image_width + '\',\'' + image_height + '\');">');
   $("#kiv_share").append('<a href="' + image_info + '" download="' + filename + '"><img alt="image" id="pm_nav_download" src="catalog/view/javascript/jquery/pm-gallery/image/pm_nav_download.png" title="Download full resolution picture"></a>');
-
-
 
   $("#kiv_share").append('<img id="pm_nav_link" src="catalog/view/javascript/jquery/pm-gallery/image/pm_nav_link.png" title="Link">');
   $("#pm_nav_link").css({"border":"0px"});
