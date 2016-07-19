@@ -99,7 +99,7 @@ function getImage(module_id,image_info, image_width, image_height, pm_max_pic_he
 
   $("#" + img_id).slideUp();
   $("#" + img_id).slideDown();
-  $("#") + img_id.css({"z-index":"10000"});
+  $("#" + img_id).css({"z-index":"10000"});
   $("#" + img_id).css({"margin-left":pm_bord_size+"px"});
   $("#" + img_id).css({"margin-top":pm_bord_size+"px"});
   $("#" + img_id).css({"width": img_width-sizes +"px"});
