@@ -90,7 +90,6 @@ $i++;
 ?>
 <script type="text/javascript">
   $("#gallery-content").append('<div id="fw_blend"></div>');
-  $('.pm_gallery').css({"height":"<?php echo $pm_fr_height;?>px"});
   $('.pm_gallery').css({"background-color":"<?php echo $pm_fr_color;?>"});
   $('.pm_gallery').css({"border":"solid 1px #000000"});
 
