@@ -104,4 +104,3 @@ class ModelCatalogPMGallery extends Model{
          return array("prev"=>$prev, "next"=> $next);
       }
 }
-?>
