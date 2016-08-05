@@ -45,12 +45,12 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
      }
   }
  
-      public function getComments($dir,$file){
+  public function getComments($dir,$file){
                   $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "pm_gallery_viewercomment WHERE folder_name='" . $dir. "' AND image_name='" . $file. "'");
                   $results = $query->rows;
                     return $results;
-        }
-      public function getComment($album,$file){
+  }
+  public function getComment($album,$file){
                 $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "pm_gallery_admin_comment WHERE folder_name='" . $album."' AND image_name = '".$file."'");
                 $results = $query->rows;
                 $content = array();
@@ -59,8 +59,8 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                                                                       "comment"=>$result['comment']);
                     }
                   return $content;
-      }
-      public function addComment($data){
+  }
+  public function addComment($data){
                                 
                      $rows = $data['add_pm_gallery_comment'];
                                      $languages = array_keys($data['add_pm_gallery_comment']);
@@ -86,41 +86,41 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                               language_id='" . $k[$i]."'");
                     }
               }
-   }                    
-   public function editViewerComment($data){
+  }                    
+  public function editViewerComment($data){
                     $this->db->query("UPDATE " . DB_PREFIX . "pm_gallery_viewercomment SET name='".$this->db->escape($data['name'])."', comment='" . $this->db->escape($data['comment']) . "'
                     WHERE id='".$data['id']."'");
-   }
+  }
 
-   private function calcSize($dir){
-	$size = 0;
-	$num = 0;
-	$iterator = new DirectoryIterator($dir);
-	foreach ($iterator as $fileInfo){
-		if($fileInfo->isDot()){
-			continue;
-		} else if($fileInfo->isDir()){
-			$info = $this->calcSize($dir.$fileInfo->getBasename()."/");
-			$size += $info[1];
-		} else if($fileInfo->isFile()){
-			$size += $fileInfo->getSize();
-			$num += 1;
-		}
-	}
-	return array($num, $size);
-        }
+  private function calcSize($dir){
+	   $size = 0;
+	   $num = 0;
+	   $iterator = new DirectoryIterator($dir);
+	    foreach ($iterator as $fileInfo){
+	    	if($fileInfo->isDot()){
+			    continue;
+		   } else if($fileInfo->isDir()){
+	   		 $info = $this->calcSize($dir.$fileInfo->getBasename()."/");
+		   	$size += $info[1];
+		   } else if($fileInfo->isFile()){
+			   $size += $fileInfo->getSize();
+		   	$num += 1;
+		  }
+	  }
+	  return array($num, $size);
+  }
        
-    public function getFolders($module_id){
+  public function getFolders($module_id){
                $query = $this->db->query("SELECT * FROM " . DB_PREFIX ."pm_gallery_folder WHERE `module_id` = '" . $module_id ." ' ORDER BY sort_order ASC");
                      
            return $query->rows;
-}  
-    public function getFolder($module_id,$folder_id){
+  }  
+  public function getFolder($module_id,$folder_id){
                $query = $this->db->query("SELECT * FROM " . DB_PREFIX ."pm_gallery_folder WHERE `module_id` = '" . $module_id ." ' AND `folder_id` = '" . $folder_id . "'");
                      
            return $query->row;
-}
-    public function getDatabaseImage(){
+  }
+  public function getDatabaseImage(){
                 $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "pm_gallery_folder kgf LEFT JOIN " . DB_PREFIX . "pm_gallery_image kgi 
               ON (kgf.folder_id = kgi.folder_id) ORDER BY kgi.sort_order ASC");
                $image_info = array();
@@ -151,50 +151,43 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                          }
                      
               return $image_info;
-          }
-    public function getDatabaseImages($folder){
+  }
+  public function getDatabaseImages($folder){
                 $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "pm_gallery_folder kgf LEFT JOIN " . DB_PREFIX . "pm_gallery_image kgi 
               ON (kgf.folder_id = kgi.folder_id) WHERE kgf.folder = '".$folder."' ORDER BY id ASC");
 
                         $results = $query->rows;
               return $results;;
-          }
-          public function folderSizetoDatabase($data){
+  }
+  public function folderSizetoDatabase($data){
                     
                               $this->db->query("UPDATE  " . DB_PREFIX . "pm_gallery_folder SET
                                                                                          size = '".$data['file_sizes']."'  WHERE name='" . $data['folder_name'] ."'"); 
-          }
-          public function editImageTitle($data){
+  }
+  public function editImageTitle($data){
                     
                               $this->db->query("UPDATE  " . DB_PREFIX . "pm_gallery_image SET
                                                                                          title = '".$this->db->escape($data['edit_title'])."'  WHERE id='" . $data['image_id'] ."'"); 
-          }
-          public function deleteViewerComment($data){
+  }
+  public function deleteViewerComment($data){
                              $this->db->query("DELETE FROM " . DB_PREFIX ."pm_gallery_viewercomment WHERE id = '".$data['id']."'");
-          }
-          public function deleteComment($data){
+  }
+  public function deleteComment($data){
                              $this->db->query("DELETE FROM " . DB_PREFIX ."pm_gallery_admin_comment WHERE folder_name = '".$data['foldername']."' AND image_name='".$data['imagename']."'");
-          }
-          public function editFolder($data,$setting){
+  }
+  public function editFolder($data,$setting){
                     $info = $data['editfolder'];
                     $pm_galleries = $setting['pm_galleries'];
-                    $pm_pic_frame = $setting['pm_pic_frame'];
-                    $pm_fr_galleries = $setting['pm_fr_galleries'];
+                    // image frame variables
                      $query = $this->db->query("SELECT * FROM " . DB_PREFIX ."pm_gallery_folder WHERE folder_id = '".$info['folder_id']."'");
                      $result = $query->row;
                          
                      $path = '../'.$pm_galleries;
                      
                      $path2 = '../'.$pm_galleries.$result['name'];
-                     $path3 = '../'.$pm_fr_galleries;
-                     $path4 = '../'.$pm_fr_galleries.$result['name'];
+                    // image frame variables
                     @rename( '../'.$pm_galleries.$result['name'],'../'.$pm_galleries.$info['name']);
-                    
-                    if($pm_pic_frame == 1){
-                      if(is_dir('../'.$pm_fr_galleries.$result['name'])){
-                          @rename('../'.$pm_fr_galleries.$result['name'],'../'.$pm_fr_galleries.$info['name']);
-                      }
-                    }
+                    // image frame loop
                       $this->db->query("UPDATE  " . DB_PREFIX . "pm_gallery_folder SET
                       	                                                           name = '". $info['name'] ."',
                                                                                          sort_order= '" . $info['sort_order']. "',
@@ -209,8 +202,8 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                  }
                       $this->db->query("UPDATE  " . DB_PREFIX . "pm_gallery_admin_comment SET folder_name='".$this->db->escape($info['name'])."' WHERE folder_name='" . $result['name'] ."'"); 
                       $this->db->query("UPDATE  " . DB_PREFIX . "pm_gallery_viewercomment SET folder_name='".$this->db->escape($info['name'])."' WHERE folder_name='" . $result['name'] ."'");  
-          }
-          public function changeImageFolder($data,$pm_gallery,$pm_pic_frame,$pm_fr_gallery,$module_id){
+  }
+  public function changeImageFolder($data,$pm_gallery,$module_id){
                              
                     if($data['change_folder'] !=$data['foldername']){
                                                    
@@ -221,10 +214,7 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                         $thumb_path = '../'.$pm_gallery.$data['foldername'] .'/thumbs/'. $mixthumb.$data['imagename'];   
                         $copy_folder_path = '../'.$pm_gallery.$data['change_folder'].'/'. $data['imagename'];
                         
-                        if($pm_pic_frame == 1){
-                        $image_fr_path = '../'.$pm_fr_gallery.$data['foldername'] .'/'. $data['imagename'];    
-                         $copy_fr_folder_path = '../'.$pm_fr_gallery.$data['change_folder'].'/'. $data['imagename'];
-                        }
+                    // image frame loop
  
                         $query2=$this->db->query("SELECT * FROM " . DB_PREFIX ."pm_gallery_folder WHERE name='".$data['change_folder']."'");
                         $folder_id = $query2->row['folder_id'];
@@ -241,7 +231,7 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                  
                         if(file_exists($thumb_path)){
                         $thumb_dir = '../'.$pm_gallery.$data['change_folder'] .'/thumbs/';   
-                            if(!is_dir($thumb_dir)){
+                                 if(!is_dir($thumb_dir)){
                                               $real_permission = $this->getLogsPerms();
                                               @mkdir( $thumb_dir, octdec( $real_permission ) );
                                  } 
@@ -249,11 +239,7 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                           @copy($thumb_path,$copy_thumb_path);
                           }
    
-                        if($pm_pic_frame == 1){    
-                                               if(file_exists($image_path)){
-                                                                        @copy($image_path,$copy_folder_path);
-                                                 } 
-                          }
+                    // image frame loop
                         $query=$this->db->query("SELECT * FROM " . DB_PREFIX ."pm_gallery_image WHERE id='".$data['image_id']."'");
                         $result = $query->row;
                         $this->db->query("INSERT INTO  " . DB_PREFIX ."pm_gallery_image SET folder_id='".$folder_id."',
@@ -277,15 +263,15 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                                                 "thumb"=>$mixthumb.$data['imagename']);
                         $this->deleteImage($delete_data,$pm_fr_gallery);
                     }
-          }
-        public function imgMysql($file,$mysql,$surplus){
+  }
+  public function imgMysql($file,$mysql,$surplus){
                for($i=0;$i<count($surplus[1]);$i++){
                          if(isset($surplus[0][$i])){
                              $this->db->query("DELETE FROM " . DB_PREFIX ."pm_gallery_image WHERE id = '".$surplus[1][$i]."' AND mixname='".$surplus[0][$i]."'");
                              }
               }
-          }
-    public function getDatabaseFolder($folder){
+  }
+  public function getDatabaseFolder($folder){
     $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "pm_gallery_folder kgf INNER JOIN " . DB_PREFIX . "pm_gallery_image kgi 
               ON (kgf.folder_id = kgi.folder_id) WHERE kgf.name = '".$folder."'");
     
@@ -317,14 +303,14 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                          }
                      
               return $image_info;
-    }
-    public function getImageOrder($folder){
+  }
+  public function getImageOrder($folder){
                            $folder_id = $this->db->query("SELECT * FROM " . DB_PREFIX . "pm_gallery_folder WHERE name='".$folder."'");
     $query = $this->db->query("SELECT MAX(sort_order) FROM " . DB_PREFIX . "pm_gallery_image WHERE folder_id='".$folder_id->row['folder_id']."'");
     
               return $query->row["MAX(sort_order)"]+1;
-    }
-    public function getFolderInfo($module_id){
+  }
+  public function getFolderInfo($module_id){
               $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "pm_gallery_folder  WHERE `module_id` = '" . $module_id . "' ORDER BY sort_order ASC");
              
               $results = $query->rows;
@@ -373,55 +359,15 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
            $query2 = $this->db->query("UPDATE " . DB_PREFIX . "pm_gallery_image SET
             sort_order='".$img['sort_order']."' WHERE id='".$img['image_id']."'");
             }
-          }
-          public function editFrameModel( $image_id,$frame_model ){                   
-           $this->db->query("UPDATE " . DB_PREFIX . "pm_gallery_image SET
-            frame_model='".$frame_model."' WHERE id='".$image_id."'");
-          }
-       public function getImageInfo($data){
-                 $folder = $data[0];
-                 $image = $data[1];
-        
-                  $querys = $this->db->query("SELECT * FROM " . DB_PREFIX . "pm_gallery_folder WHERE name = '" .$folder ."'");
-                  $folder_id = $querys->row["folder_id"];
-                      $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "pm_gallery_image WHERE folder_id = '" . $folder_id . "' AND filename = '" . $image . "'");
-                      $results = $query->rows;
-                      $file = array();
-                       $unserialize = '';
-                      foreach($results as $result){      
-                       if($result['exif_data'] !=""){
-                                 $unserialize = unserialize($result['exif_data']);
-                       }
-                       
-                                    $file = array("id"=>$result['id'],
-                                                        "folder"=>$folder,
-                                                        "folder_id"=>$result['folder_id'],
-                                                        "module_id"=>$result['module_id'],
-                                                        "title"=>$result['title'],
-                                                        "filename"=>$result['filename'],
-                                                        "mixname"=>$result['mixname'],
-                                                        "width" => $result['width'],
-                                                        "height" => $result['height'],
-                                                        "filesize" => round($result['filesize']/1024,2),
-                                                        "exif_data" => $unserialize,
-                                                        "watermark"=>$result['watermark'],
-                                                        "imageframe"=>$result['imageframe'],
-                                                        "frame_model"=>$result['frame_model'],
-                                                        "width_of_fr" => $result['width_of_fr'],
-                                                        "height_of_fr" => $result['height_of_fr'],
-                                                        "filesize_of_fr" => round($result['filesize_of_fr']/1024,2),
-                                                        "sort_order"=>$result['watermark']);
-                           }
-                                
-                      return $file;
-}
-       public function getImages($module_id,$folder){      
+  }
+    // image frame method
+  public function getImages($module_id,$folder){      
                   $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "pm_gallery_folder kgf LEFT JOIN " . DB_PREFIX . "pm_gallery_image kgi ON (kgf.folder_id = kgi.folder_id) WHERE kgi.folder_id='" . $folder ."' AND kgi.module_id='" . $module_id . "'");
                     
                                 
                       return $query->rows;
-}
-public function addWatermark($data,$pm_gallery){
+  }
+  public function addWatermark($data,$pm_gallery){
                        $pm_watermark_hori = $data['watermark_hori'];
                        $pm_watermark_vert = $data['watermark_vert'];
                        $pm_watermark_size = $data['watermark_size'];
@@ -621,6 +567,8 @@ public function addWatermark($data,$pm_gallery){
 		
             $p='/';
 			$target_path = "../".$pm_galleries.$dir.$p;
+                    // image frame variables
+                    // image frame loop
 			$target_fr_path = "../".$data['pm_fr_galleries'].$dir.$p;                 
                                                         $targets = "../".$pm_galleries;
                                                         $real_permission = $this->getLogsPerms();
@@ -909,23 +857,8 @@ public function addWatermark($data,$pm_gallery){
 							}
 						}
           }
-                                                                                            
-          if($data['pm_pic_frame'] == 1){
-              if(!isset($data['addimageframe'])){
-							// Save image is not of frame
-							switch($temp[0]){
-								case "jpg":
-									imagejpeg($image, $target_fr_name, 80);
-								break;
-								case "png":
-									imagepng($image, $target_fr_name);
-								break;
-								case "gif":
-									imagegif($image, $target_fr_name);
-								break;
-                 }
-              }
-          }
+       
+                    // image frame loop
 				// Release memory
              imageDestroy($image);
 
@@ -1018,7 +951,7 @@ public function addWatermark($data,$pm_gallery){
                                         $image_not_found = true;
                        }
 
-     //   $pm_image = $pm_galleries . $target_path;
+                    // image frame variables
 
 
                     if($image_not_found == true){
@@ -1029,8 +962,8 @@ public function addWatermark($data,$pm_gallery){
                                      } 
                                                                                             
                    }
-     }
-     public function deleteImage($data,$fr_galleries){
+  }
+  public function deleteImage($data,$fr_galleries){
                   $response = "";
                   $pm_galleries = $data['pm_galleries'];
                   if(isset($data['album']))
@@ -1076,8 +1009,8 @@ public function addWatermark($data,$pm_gallery){
                                 }
                                     return $response;
 
-   }
-   public function imageResize($data,$pm_gallery,$dir,$file){
+  }
+  public function imageResize($data,$pm_gallery,$dir,$file){
                         $query=$this->db->query("SELECT * FROM " . DB_PREFIX ."pm_gallery_folder WHERE name='".$dir."'");
                         $folder_id = $query->row['folder_id'];     
                         
@@ -1183,8 +1116,8 @@ public function addWatermark($data,$pm_gallery){
                               }
           }
                     return true;
-          }
-        public function managefolder($data,$setting){
+  }
+  public function managefolder($data,$setting){
          
              $pm_galleries = $setting['pm_galleries'];
              $pm_fr_galleries = $setting['pm_fr_galleries'];
@@ -1202,7 +1135,7 @@ public function addWatermark($data,$pm_gallery){
              $pm_th_2sq_crop_hori = $setting['pm_th_2sq_crop_hori'];
              $pm_show_nav = $setting['pm_show_nav'];
              $pm_nav_always = $setting['pm_nav_always'];
-             $pm_pic_frame = $setting['pm_pic_frame'];
+                    // image frame variables
              
              $path = "../".$pm_galleries;
              $path2 = "../".$pm_fr_galleries; 
@@ -1279,13 +1212,7 @@ public function addWatermark($data,$pm_gallery){
                                                                      }
                                               }
                   
-                       if($pm_pic_frame == 1){
-                                              if(is_dir($fr_folder)){
-                                                               if(is_writable($fr_folder)){   
-                                                                     $this->deleteAll($fr_folder);
-                                                                     } 
-                                              }
-                       }
+                    // image frame loop
                                         $query = $this->db->query("SELECT (folder_id) FROM ".DB_PREFIX."pm_gallery_folder WHERE name = '".$data['rmdir']."'");
                                         
                        $this->db->query("DELETE FROM ".DB_PREFIX."pm_gallery_folder WHERE name = '" . $data['rmdir']."'");
@@ -1306,13 +1233,7 @@ public function addWatermark($data,$pm_gallery){
                                        $this->emptyAll($folder);
                                        } 
                                        }
-                                        if($pm_pic_frame == 1){
-                                              if(is_dir($fr_folder)){
-                                                    if(is_writable($fr_folder)){   
-                                               $this->emptyAll($fr_folder) or die ("Error: Not permission to $folder");
-                                               }
-                                            }
-                                       }
+                    // image frame loop
                                        $q = $this->db->query("SELECT * FROM " . DB_PREFIX . "pm_gallery_folder WHERE name='".$data['empty']."'");
                                        $folder_id = $q->row['folder_id'];
                                        $this->db->query("DELETE FROM " . DB_PREFIX . "pm_gallery_image WHERE folder_id='".$folder_id."'");
@@ -1363,8 +1284,8 @@ public function addWatermark($data,$pm_gallery){
                     } else {
                       echo 'bad request!';
                     }
-}
-   private function getMixName(){
+  }
+  private function getMixName(){
            $hash = 'aabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYXZABCDEFGHIJKLMNOPQRSTUVWXYXZ123456789012345678901234567890';
            $values = array();
            $result = array();
@@ -1389,7 +1310,7 @@ public function addWatermark($data,$pm_gallery){
             }
               return implode("",$values);
   }
-   private function td_get_exif($image) {
+  private function td_get_exif($image) {
                     $filename = $image['FILE']['FileName']; 
                     $exif = $image; 
                     if (is_array($exif) && isset($exif['EXIF'])) {
@@ -1441,4 +1362,3 @@ public function addWatermark($data,$pm_gallery){
         return $new;
     }
 }
-?>
