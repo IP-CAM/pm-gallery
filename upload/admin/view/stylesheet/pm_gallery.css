@@ -1,0 +1,101 @@
+#nav{
+  float:left;
+  font-family:Arial;
+  font-weight:bold;
+  font-size:16px;
+}
+#nav > li{
+  list-style:none;
+  border-bottom: 1px solid #212121;
+  border-top: 1px solid #686868;
+  background-color: #4a4c58;
+  padding:6px;
+  padding-left:10px;
+}
+#nav > li > a:link{
+  color:#ffffff;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+#nav > li > a:visited{
+  color:#efdcba;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+#folders{
+  float:right;
+  border-bottom: 1px solid #212121;
+  border-top: 1px solid #686868;
+  background-color: #ffffff;
+  padding:6px;
+  padding-left:10px;
+  margin-top:20px;
+  margin-right:14px;
+  border:1px solid #93805f;
+}
+#folders td{
+  padding:10px 0px 10px 20px;
+  border:1px solid #93805f;
+  box-shadow: 0px 1px 2px #000;
+  color:blue;
+  font-weight:bold;
+}
+a.mkdir{
+  font-weight:bold;
+  font-size:16px;
+  font-family:Arial;
+}
+a.mkdir:link{
+  color:red; 
+}
+a.mkdir:visited{
+  color:brown;
+ }
+#create-folder{
+ z-index:100;
+    position:absolute;
+   background:#FFFFFF;
+    left:90px;
+    width:740px;
+   height:auto;
+    border:solid 1px rgb(100,110,120);
+     padding:40px 20px 20px 20px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -khtml-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+}
+.folder-button{
+  font-size:18px;
+}
+#gallery{
+	padding-right:15px;
+}
+#koschtit-gallery{
+  background-color: #ffffff;
+  color:#000000;  
+  padding-top:8px;
+  border:solid 1px rgb(100,110,120);
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -khtml-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  margin-right:0px;
+}
+     
+.image-info{
+                  margin-top:10px;
+}
+
+.image-info td{
+                  padding-left:5px;
+                  font-size:15px;
+}                     
+.image-left{
+                  vertical-align:top;
+                  height:250px;
+}  
+.image-right{
+                  vertical-align:top;
+                  text-align:center;
+}   
