@@ -1,4 +1,4 @@
-<style type="text/css">
+ <style type="text/css">
 .pm_thumbnail{
   border:<?php echo $pm_th_bord_size;?>px solid <?php echo $pm_th_bord_color;?>; 
   width:<?php echo $pm_th_width;?>px;
@@ -30,16 +30,8 @@
 </style>
 
 
+
  <div id="gallery-content" class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
-
- <?php if($pm_breadcrumbs == 1){?>
-  <ul class="breadcrumb">
-    <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-    <?php } ?>
-  </ul>
-  <?php } ?>
-
            <div id="galleries" class="row">
                 <div id="folder-controller">
                 </div> 
@@ -62,7 +54,7 @@ if($query->num_rows){
 
 <h2 class="gallery"><?php echo $result['title'];?></h2>
   <div class="folder-description"><?php echo !empty($result['description']) ? $result['description']: '';?></div>
-  <div class="pm_gallery col-md-12 col-lg-12 col-xs-12"  title="<?php echo $result['folder'];?>" id="0_<?php echo $i;?>" OnMouseOut="closeButtons('<?php echo $pm_fr_height;?>','0_<?php echo $i;?>');" OnMouseOver="lourButtons('<?php echo $result['folder_id'];?>','0_<?php echo $i;?>','<?php echo $pm_fr_height;?>','<?php echo $pm_th_title;?>','<?php echo $txt_nav_maxi;?>','<?php echo $txt_max;?>');">
+  <div class="pm_gallery col-md-12 col-lg-12 col-xs-12"  title="<?php echo $result['folder'];?>" id="0_<?php echo $i;?>">
 
 <?php
  
@@ -144,7 +136,7 @@ $i++;
       }
 
       var bottom_height = height-top_height;
-      $("#pm_vcomm").html('<div id="comment-top" style="margin-top:-20px;background:#ffffff;height:' + top_height + 'px;float:left;width:' + width + 'px;"><div onClick="thePicture();" style="float:left;width:' + laske1 + 'px;text-align:center;line-height:' + top_height + 'px;"><img src="' + file + '" style="height:' + thumb_height + 'px;" alt=""></div><div id="comment" style="float:right;width:' + laske2 + 'px;margin-right:' + comm_margin_right + '%;padding-right:10px;"><h2><?php echo $txt_vcomm_lac;?></h2><form method="post" id="comment-form"><div class="form-group"><label class="col-sm-' + col_left + ' control-label" for="input-name"><span data-toggle="tooltip" title="<?php echo $txt_vcomm_name;?>"><?php echo $txt_vcomm_name;?></span></label><div class="col-sm-' + col_right + '"><input type="text" name="name" value="" placeholder="<?php echo $txt_vcomm_name;?>" id="form-input" class="' + input + '" /></div></div><div class="form-group"><label class="col-sm-' + col_left + ' control-label" for="input-comment"><?php echo $txt_vcomm_comm;?></label><div class="col-sm-' + col_right + '"><textarea name="pm_vcomm_comm" rows="5" placeholder="<?php echo $txt_vcomm_comm;?>" id="form-textarea" class="' + input + '"></textarea></div></div><div class="' + div_class + '"><button type="button" id="send-post" data-toggle="tooltip" title="<?php echo $txt_vcomm_post;?>" class="btn btn-primary"><i class="fa fa-save"></i></button><a href="" data-toggle="tooltip" title="<?php echo $txt_cancel;?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div></form></div></div><div id="comment-bottom"></div>');
+      $("#pm_vcomm").html('<div id="comment-top" style="margin-top:-20px;background:#ffffff;height:' + top_height + 'px;float:left;width:' + width + 'px;"><div onClick="thePicture();" style="float:left;width:' + laske1 + 'px;text-align:center;line-height:' + top_height + 'px;"><img src="' + file + '" style="height:' + thumb_height + 'px;" alt=""></div><div id="comment" style="float:right;width:' + laske2 + 'px;margin-right:' + comm_margin_right + '%;padding-right:10px;"><h2><?php echo $txt_vcomm_lac;?></h2><form method="post" id="comment-form"><div class="form-group"><label class="col-sm-' + col_left + ' control-label" for="input-name"><span data-toggle="tooltip" title="<?php echo $pm_vcomm_name;?>"><?php echo $txt_vcomm_name;?></span></label><div class="col-sm-' + col_right + '"><input type="text" name="name" value="" placeholder="<?php echo $txt_vcomm_name;?>" id="form-input" class="' + input + '" /></div></div><div class="form-group"><label class="col-sm-' + col_left + ' control-label" for="input-comment"><?php echo $txt_vcomm_comm;?></label><div class="col-sm-' + col_right + '"><textarea name="pm_vcomm_comm" rows="5" placeholder="<?php echo $txt_vcomm_comm;?>" id="form-textarea" class="' + input + '"></textarea></div></div><div class="' + div_class + '"><button type="button" id="send-post" data-toggle="tooltip" title="<?php echo $pm_vcomm_post;?>" class="btn btn-primary"><i class="fa fa-save"></i></button><a href="" data-toggle="tooltip" title="<?php echo $txt_cancel;?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div></form></div></div><div id="comment-bottom"></div>');
 
       if(height > width){
         $('.pull-center').css({"text-align":"left"});
@@ -195,44 +187,12 @@ $i++;
                 if(obj.length > 0){
                   for(i=0; i<obj.length;i++){
                     $("#comments").append('<div class="comment" class="col-sm-12" style="width:' + cwidth + 'px;"><div class="col-sm-12" style="background:#666666;border:1px yellow;"><label class="col-sm-3" style="position:relative;float:left;height:22px;text-align:left;font-weight:bold;color:#ffffff;">' + obj[i]['name'] + '</label><label class="col-sm-2" style="heigth:22px;font-weight:bold;text-align:right;color:#ffffff;">' + obj[i]['date'] + '</label></div><div class=col-sm-12" style="padding:10px;border:1px solid #ffffff;">' + obj[i]['comment'] + '</div></div>');
-                  }
-                }
-                if(obj.length == 0){
-                    $("#comments").append('<div class="comment" class="col-sm-12" style="width:' + cwidth + 'px;"><?php echo $txt_vcomm_ncy;?></div>');
-                }
+                 }
+
+              }
            }
         }
       });
-}
-function startExplorer(folder_id,frame_id,pm_th_title){
-  $("body").append('<div id="pm_maindiv"></div>');
-  $("#pm_maindiv").css({"background":"rgb(255, 255, 255) none repeat scroll 0% 0%"});
-  $("#pm_maindiv").css({"position":"fixed"});
-  $("#pm_maindiv").css({"left":"0px"});
-  $("#pm_maindiv").css({"top":"0px"});
-  $("#pm_maindiv").css({"z-index":"10000"});
-  $("#pm_maindiv").css({"overflow-x":"hidden"});
-  $("#pm_maindiv").css({"overflow-y":"auto"});
-  $("#pm_maindiv").css({"display":"block"});
-  $("#pm_maindiv").css({"width":"100%"});
-  $("#pm_maindiv").css({"height":"100%"});
-        $.ajax({
-        url: 'index.php?route=module/pm_gallery/explorer',
-        type:'post',
-        dataType: 'json',
-        data: '&module_id=<?php echo $module_id;?>&folder_id=' + folder_id,
-        success: function(json) {
-          var thumbs = json;
-             for(var i = 0; i< thumbs.length;i++){   
-                if(pm_th_title == 1){
-                   $( "#pm_maindiv" ).append('<div class="pm_thumbnail col-sm-<?php echo $pm_th_per_line;?> col-md-<?php echo $pm_th_per_line;?> col-lg-<?php echo $pm_th_per_line;?> col-xs-12" style="height:auto;padding:0px;background:#ffffff;margin_top:15px;margin-left:<?php echo $pm_th_margin_left;?>px;"><div class="pic" style="width:100%;text-align:center;"><img id="' + frame_id + '_' + i + '"  src="' + thumbs[i]['thumb'] + '" onclick="getImage(\''+ thumbs[i]['image'] + '\',\''+ thumbs[i]['width'] + '\',\'' + thumbs[i]['height'] + '\',\'<?php echo $pm_max_pic_height;?>\',\'<?php echo $pm_bord_size;?>\',\'' + folder_id + '\',\'' + thumbs[i]['image_id'] + '\',\'<?php echo $pm_show_image_nav;?>\',\'<?php echo $txt_nav_close;?>\',\'<?php echo $txt_nav_download;?>\');" onload="this.style.visibility=\'visible\'" alt="0_0_0" style="width:<?php echo $pm_th_perc_width;?>%;margin-top:10px;"/></div><div class="thumb_title">' + thumbs[i]['title'] + '</div></div>');            
-                } 
-                if(pm_th_title == 0){                         
-                   $( "#pm_maindiv" ).append('<img class="pm_thumbnail" id="' + frame_id + '_' + i + '" src="' + thumbs[i]['thumb'] + '"  onclick="getImage(\''+ thumbs[i]['image'] + '\',\''+ thumbs[i]['width'] + '\',\'' + thumbs[i]['height'] + '\',\'<?php echo $pm_max_pic_height;?>\',\'<?php echo $pm_bord_size;?>\',\'' + folder_id + '\',\'' + thumbs[i]['image_id'] + '\',\'<?php echo $pm_show_image_nav;?>\',\'<?php echo $txt_nav_close;?>\',\'<?php echo $txt_nav_download;?>\');" class="col-md-<?php echo $pm_th_per_line;?> col-lg-<?php echo $pm_th_per_line;?> col-xs-12" style="width:<?php echo $pm_th_perc_width;?>%; margin-left:<?php echo $pm_th_margin_left;?>px;" onload="this.style.visibility=\'visible\'"  alt="0_0_0" class="pm_thumbnail"/>');
-                }
-            }
-       }
-     });
 }
 function basename(path) {
     return path.replace(/\\/g,'/').replace( /.*\//, '' );
