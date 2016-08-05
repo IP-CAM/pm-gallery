@@ -4,6 +4,7 @@ class ControllerModulePMGallery extends Controller {
   private $settings = array();
 
   public function index($setting) {
+    $this->settings = $setting;
     $data = array();
 		$this->language->load('module/pm_gallery');
 
@@ -25,11 +26,13 @@ class ControllerModulePMGallery extends Controller {
    
        extract($setting);
 
+                                     
                     $data['pm_gallery_module'] = true;
+
      
                     $data['galleries'] = array();
-                    $data['pm_help_text'] = str_replace("\r\n","",$data['pm_help_text']); 
-                    $data['pm_help_text'] = str_replace("\n","",$data['pm_help_text']); 
+                    $data['pm_help_text'] = str_replace("\r\n","",$data['txt_help_text']); 
+                    $data['pm_help_text'] = str_replace("\n","",$data['txt_help_text']); 
                    
                     $data['folder'] = '';
                     $data['description'] = '';
@@ -56,7 +59,6 @@ class ControllerModulePMGallery extends Controller {
       
         
           $data['image_path'] = $pm_galleries . $name . '/';
-          $data['fr_image_path'] = $pm_fr_galleries . $name . '/';
           $data['db'] = $this->db;
 
  		if (isset($this->error['warning'])) {
@@ -81,11 +83,13 @@ class ControllerModulePMGallery extends Controller {
   
         $json = array();
         $this->load->model('catalog/pm_gallery');
-        if(isset($this->request->get['pm_galleries']) && isset($this->request->post['module_id']) && isset($this->request->post['folder_id'])){
+        if(isset($this->request->get['pm_galleries']) && isset($this->request->get['module_id']) && isset($this->request->get['folder_id'])){
+
        $settings = $this->settings($this->request->post['module_id']);
 
        extract($settings);
-            $json = $this->model_catalog_pm_gallery->explorer($pm_galleries,$this->request->post);
+       
+            $json = $this->model_catalog_pm_gallery->explorer($pm_galleries,$this->request->get);
         }
               $this->response->addHeader('Content-Type: application/json');
               $this->response->setOutput(json_encode($json));
@@ -128,7 +132,7 @@ class ControllerModulePMGallery extends Controller {
           $json['error'] = $this->language->load('error_comment');
        }
 
-       if($pm_moderate_posts == 1){
+      if($pm_moderate_posts == 1){
         $address = HTTP_SERVER . $this->request->post['file'];
 
              $content = sprintf($this->language->load('txt_new_comment'),$address,$address);
@@ -148,7 +152,7 @@ class ControllerModulePMGallery extends Controller {
       $mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['name']), ENT_QUOTES, 'UTF-8'));
       $mail->setText($content);
       $mail->send();
-       } 
+      } 
 
       if(!$json['error']){
          $sx = $this->model_catalog_pm_gallery->addComment($this->request->post); 
