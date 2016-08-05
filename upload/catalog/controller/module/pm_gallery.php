@@ -19,7 +19,6 @@ class ControllerModulePMGallery extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 		$this->document->addStyle('catalog/view/javascript/jquery/pm-gallery/css/pm_gallery.css');
     $this->document->addScript('catalog/view/javascript/jquery/pm-gallery/getImage.js');
-    $this->document->addScript('catalog/view/javascript/jquery/pm-gallery/buttons.js');
 
      $data = array_merge($data,$setting);
      $data = array_merge($data,$this->language->load('module/pm_gallery'));
@@ -181,4 +180,3 @@ class ControllerModulePMGallery extends Controller {
          return $json;
   }
 }
-?>
