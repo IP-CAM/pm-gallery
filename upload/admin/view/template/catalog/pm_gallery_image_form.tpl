@@ -36,9 +36,6 @@
                            <li><a href="#tab-resize" data-toggle="tab"><?php echo $tab_resize; ?></a></li>
                            <li><a href="#tab-comments" data-toggle="tab"><?php echo $tab_comments; ?></a></li>
                            <li><a href="#tab-watermark" data-toggle="tab"><?php echo $tab_watermark; ?></a>
-                           <?php if($ki_pic_frame == 1){?>
-                           <li><a href="#tab-imageframe" data-toggle="tab"><?php echo $tab_imageframe; ?></a></li>
-                           <?php } ?>
                            <li><a href="#tab-exifdata" data-toggle="tab"><?php echo $tab_exifdata; ?></a></li>
           </ul>
       <div class="tab-content">
@@ -169,85 +166,6 @@
                                         </span>
                      </div>
      </div>
-<?php if($ki_pic_frame == 1){?>
-<div class="tab-pane" id="tab-imageframe">   
-       <div class="comment-title"><?php echo $text_add_imageframe;?></div>
-       <?php
-                       if($image_info['imageframe'] == 1){ ?>  
-                       <div  class="success"><?php echo $text_found_imageframe;?></div> 
-                       <?php } ?>
-
-      <div class="form-group">
-                     <input type="hidden" name="imageframe_id" value="<?php echo $image_info['id'];?>"/>
-                <label class="col-sm-2 control-label" for="frame_version"><?php echo $entry_add_imageframe; ?></label>
-                <div class="col-sm-10">
-                  <label class="radio-inline">
-                    <?php if ($image_info['frame_model'] == 'draw_frame') { ?>
-                     <input type="radio" name="frame_version" value="draw_frame" checked="checked" />
-                    <?php echo $text_draw_frame; ?>
-                    <?php } else { ?>
-                     <input type="radio" name="frame_version" value="draw_frame" />
-                    <?php echo $text_draw_frame; ?>
-                    <?php } ?>
-                  </label>
-                  <label class="radio-inline">
-                    <?php if ($image_info['frame_model'] == 'clip_frame') { ?>
-                     <input type="radio" name="frame_version" value="clip_frame" checked="checked" />
-                    <?php echo $text_clip_frame; ?>
-                    <?php } else { ?>
-                     <input type="radio" name="frame_version" value="clip_frame" />
-                    <?php echo $text_clip_frame; ?>
-                    <?php } ?>
-                  </label>
-                </div>
-      </div>
-      <div class="form-group" style="margin-top:8px;">
-                <label class="col-sm-12 control-label">
-                 <h4><b> <?php echo $column_frame_models; ?></b></h4>
-                </label>
-      </div>
-      <div class="form-group">
-                <label class="col-sm-2 control-label" for="select-tfolder"><?php echo $entry_draw_frame;?></label>
-                <div class="col-sm-10">
-
-                  <div class="well well-sm" style="height: 200px; overflow: auto;">
-           <?php  foreach($frames['draw'] as $frame0){ ?>
-                    <div class="checkbox">
-                      <label>
-                       <input name="draw_frame" type="checkbox" value="<?php echo $frame0['filename'];?>">
-                      <img style="margin-left:30px;height:30px;" src="<?php echo $frame0['path'];?>" alt="<?php echo $frame0['filename'];?>"/>
-                      <?php echo $frame0['filename']; ?>
-                      </label>
-                    </div>   
-                <?php                                    
-             }  ?>
-               
-                    </div>   
-                </div>
-      </div>
-      <div class="form-group">
-                <label class="col-sm-2 control-label" for="select-tfolder"><?php echo $entry_clip_frame;?></label>
-                <div class="col-sm-10">
-
-                  <div class="well well-sm" style="height: 160px; overflow: auto;">
-           <?php  foreach($frames['clip'] as $frame1){ ?>
-                    <div class="checkbox">
-                      <label>
-                       <input name="clip_frame" type="checkbox" value="<?php echo $frame1['filename'];?>">
-                      <img style="margin-left:30px;height:30px;" src="<?php echo $frame1['path'];?>" alt="<?php echo $frame1['filename'];?>"/>
-                      <?php echo $frame1['filename']; ?>
-                      </label>
-                    </div>   
-                <?php                                    
-             }  ?>
-               
-               </div>   
-           </div>
-      </div>
-  </div>
-                <?php                                    
-             }  ?>
-              
      <div class="tab-pane" id="tab-exifdata">     
        <div class="comment-title"><?php echo $text_exif_data;?></div>
           <table class="exif-data">
@@ -372,4 +290,4 @@ $('#viewercomment') .html(sbox);
 $('#language a:first').tab('show');
 //--></script>
 </body>
-</html>
+<?php echo $footer;?>
