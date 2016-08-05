@@ -32,7 +32,6 @@
             <li class="active"><a href="#tab-general" data-toggle="tab"><?php echo $tab_general; ?></a></li>
             <li><a href="#tab-thumb" data-toggle="tab">Thumb images</a></li>
             <li><a href="#tab-full" data-toggle="tab">Full images</a></li>
-            <li><a href="#tab-frame" data-toggle="tab">Full images with frame</a></li>
             <li><a href="#tab-texts" data-toggle="tab">Texts</a></li>
           </ul>
 
@@ -715,57 +714,7 @@
             </div>   
                 <div class="col-sm-5"><?php echo $entry_slideshow_time_help; ?></div>
        </div>
- </div> 
-<div class="tab-pane" id="tab-frame">            
-    <div class="form-group">
-            <label class="col-sm-2 control-label"><b><?php echo $entry_pic_frame; ?></b></label>
-            <div class="col-sm-5">
-                  <label class="radio-inline">
-               <?php   if($pm_pic_frame == 1){ ?>
-                    <input name="pm_pic_frame" type="radio" value="1"  checked="checked"/> <?php echo $text_enabled;?>
-               <?php } else{ ?>
-                    <input name="pm_pic_frame" type="radio" value="1"/><?php echo $text_enabled;?>
-                <?php } ?>
-                  </label>
-                  <label class="radio-inline">
-               <?php   if($pm_pic_frame == 0){ ?>
-                    <input name="pm_pic_frame" type="radio" value="0"  checked="checked"/> <?php echo $text_disabled;?>
-               <?php } else{ ?>
-                    <input name="pm_pic_frame" type="radio" value="0"/> <?php echo $text_disabled;?>
-              <?php }?>
-                  </label>
-                 </div>   
-                <div class="col-sm-5"><?php echo $entry_pic_frame_help; ?></div>
-    </div>
-
-    <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-fr_galleries"><?php echo $entry_fr_galleries; ?></label>
-            <div class="col-sm-5">
-              <input type="text" name="pm_fr_galleries" value="<?php echo $pm_fr_galleries; ?>" placeholder="<?php echo $entry_fr_galleries; ?>" id="input-fr_galleries" class="form-control" />
-            </div>
-            <div class="col-sm-5"></div>
-    </div>
-
-    <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-fr_width"><?php echo $entry_fr_width; ?></label>
-            <div class="col-sm-5">
-              <input type="text" name="pm_fr_width" value="<?php echo $pm_fr_width; ?>" placeholder="<?php echo $entry_fr_width; ?>" id="input-fr_width" class="form-control" />
-            </div>
-            <div class="col-sm-5">
-            <?php echo $entry_fr_width_help; ?>
-            </div>
-    </div>
-
-    <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-fr_height"><?php echo $entry_fr_height; ?></label>
-            <div class="col-sm-5">
-              <input type="text" name="pm_fr_height" value="<?php echo $pm_fr_height; ?>" placeholder="<?php echo $entry_fr_height; ?>" id="input-fr_height" class="form-control" />
-            </div>
-            <div class="col-sm-5">
-            <?php /* echo $entry_fr_height_help; */ ?>
-            </div>
-    </div>
-</div>       
+ </div>    
 <div class="tab-pane" id="tab-texts">       
     <div class="form-group">
             <label class="col-sm-2 control-label"><?php echo $entry_comments; ?></label>
