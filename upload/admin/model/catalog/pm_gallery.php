@@ -12,7 +12,7 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                           
     $exifdata = "";
             foreach ($iterator as $fileInfo) {
-                                                 if(is_file($pm_gallery.$folder.'/'.$fileInfo)){
+                  if(is_file($pm_gallery.$folder.'/'.$fileInfo)){
   
                         $fileSearch = $this->db->query("SELECT * FROM " . DB_PREFIX . "pm_gallery_image WHERE folder_id='".$folder_id."' AND mixname='".$fileInfo."'");
                                 if(!isset($fileSearch->row['mixname'])){
@@ -22,7 +22,7 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                           if(function_exists("exif_read_data")){        
                                                $exif = @exif_read_data($pm_gallery.$folder.'/'.$fileInfo,'IFD0,EXIF', true);
                                               
-                                                                                        $exifdata = $this->td_get_exif($exif); 
+                                               $exifdata = $this->td_get_exif($exif); 
                                           }
                                           $this->db->query("INSERT INTO " . DB_PREFIX . "pm_gallery_image SET
                                                                                         folder_id = '".$folder_id."',
@@ -35,9 +35,9 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                                                                         exif_data = '" . $this->db->escape($exifdata) ."',
                                                                                         date_added = '".time()."'");      
                                                                                                                                                 
-                                             $this->db->query("UPDATE  " . DB_PREFIX . "pm_gallery_folder SET
-                                                                                                               files = files+1,
-                                                                                                               size = size+" . $filesize ."WHERE folder_id='" . $folder_id ."'"); 
+                                          $this->db->query("UPDATE  " . DB_PREFIX . "pm_gallery_folder SET
+                                                                                                        files = files+1,
+                                                                                                        size = size+" . $filesize ."WHERE folder_id='" . $folder_id ."'"); 
                                }
                                                                                                
                 }
@@ -861,22 +861,11 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                     // image frame loop
 				// Release memory
              imageDestroy($image);
-
-                          if($pm_mixname  == 1){                                                                                                                  
-                                                  $mixname = $this->getMixName();
-                                                                         
-                                                    $mix_path = $target_path.$mixname.'.'.$extension;
-                                                    $fname = $mixname .'.'.$extension;
-                                                    rename($target_name,$mix_path);
-                          } else{
+        // pm_mixname is true loop
                                               
-                                                 $mix_path =  $target_name;
-                                                 $fname = basename($target_name);
-                          }
-                         
-                             $width_of_fr = 0;
-                             $height_of_fr = 0;
-                             $filesize_of_fr = 0;
+                            $mix_path =  $target_name;
+                            $fname = basename($target_name);
+        // dimenssion and filesize of target_fr_name
                           
                             $folder_id = $data['folder'];
                       $size =  filesize($mix_path);
@@ -886,12 +875,13 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
               $filename = basename($target_name);
               
               if(!isset($query2->row['filename']) or isset($query2->row['filename']) && $query2->row['filename'] != $filename ){
-                             if(file_exists($target_fr_name)){
-                                                      rename($target_fr_name,$mix_fr_path);
-                                                    $width_of_fr = $imageWidth;
-                                                    $height_of_fr = $imageHeight;
-                                                    $filesize_of_fr = $size;
-                             }
+                // file exists target_fr_name loop
+                /* sql insert
+                                                                                                  mixname = '" . $this->db->escape($fname). "',
+                                                                                                  width_of_fr = '".$width_of_fr."',
+                                                                                                  height_of_fr = '".$height_of_fr."',
+                                                                                                  filesize_of_fr = '".$filesize_of_fr."',
+                */
                              if(isset($data['title'])){
                                                     $title = $this->db->escape($data['title']);
                              } else {
@@ -903,21 +893,18 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                                                                                   module_id = '" . $module_id . "',
                                                                                                   title = '" . $title ."', 
                                                                                                   filename = '" . $this->db->escape(basename($target_name)) ."',
-                                                                                                  mixname = '" . $this->db->escape($fname). "',
                                                                                                   width = '" . $imageWidth . "',
                                                                                                   height = '" . $imageHeight . "',
                                                                                                   filesize = '" .$size. "',
-                                                                                                  width_of_fr = '".$width_of_fr."',
-                                                                                                  height_of_fr = '".$height_of_fr."',
-                                                                                                  filesize_of_fr = '".$filesize_of_fr."',
                                                                                                   exif_data = '" . $this->db->escape($exifdata) ."',
                                                                                                   date_added = '".time()."',
                                                                                                   sort_order = '".$data['sort_order']."'");  
-                                                
+                      /*
+                      ,
+                                                                                              size_of_fr = size_of_fr + " . $filesize_of_fr . "  */                         
                         $this->db->query("UPDATE  " . DB_PREFIX . "pm_gallery_folder SET
                                                                                               files = files+1,
-                                                                                              size = size+" . $size .",
-                                                                                              size_of_fr = size_of_fr + " . $filesize_of_fr . " WHERE folder_id='" . $folder_id ."'"); 
+                                                                                              size = size+" . $size ." WHERE folder_id='" . $folder_id ."'"); 
                                                                                    
                                                                          if(isset($data['add_pm_gallery_comment'])){
                                                                                                              
@@ -1148,9 +1135,9 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
               } elseif($data['empty']){
                               $folder = "../".$pm_galleries . $data['empty']."/";
               }
-  if(isset($data['createfolder'])){
+	  if(isset($data['createfolder'])){
                               
-                  $new_folder_id = $this->maxFolder();
+                              $new_folder_id = $this->maxFolder();
                             
                   if(!is_dir($folder)){
                                               $mask=umask(0);
@@ -1183,7 +1170,7 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                                  $data['status'] = '0';
                           }
    
-                        //  $mixthumb
+                       //   $mixthumb
                                 $this->db->query("INSERT INTO " . DB_PREFIX ."pm_gallery_folder SET
                                          folder_id='" . $new_folder_id ."',
                                          module_id = '" . $data['module_id'] . "',
@@ -1201,8 +1188,8 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                          language_id = '" . $languages[$i] . "',
                                          date_modified=NOW()");
                               }
-   }
-   if(isset($data['rmdir'])){      
+    }
+	  if(isset($data['rmdir'])){      
                                               if(is_dir($folder)){
                                                                if(is_writable($folder)){   
                                                                      $this->deleteAll($folder);
@@ -1220,8 +1207,8 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                         $this->db->query("DELETE FROM ".DB_PREFIX."pm_gallery_image WHERE folder_id = '".$folder_id."'");
                                         }
                                         
-   }
-   if(isset($data['empty'])){
+    }
+    if(isset($data['empty'])){
                                         $folder = "../".$pm_galleries.$data['empty']."/";
                                        // $file = "../".$pm_base . $data['empty']."_dir";
                                         $error = '';
@@ -1236,7 +1223,7 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                        $this->db->query("DELETE FROM " . DB_PREFIX . "pm_gallery_image WHERE folder_id='".$folder_id."'");
                                        $this->db->query("UPDATE " . DB_PREFIX . "pm_gallery_folder SET size='',files='' WHERE folder_id='".$folder_id."'");
                           
-     }
+    }
   }
   public function imageCrop($img){                          
                     $valid_exts = array('jpeg', 'jpg', 'png', 'gif');
@@ -1321,7 +1308,7 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
 	$dir_permission = substr( sprintf( '%o', fileperms( $dir ) ), -4 );
                        return $dir_permission;
     }
-    protected function getLogsPerms(){
+    private function getLogsPerms(){
 	$path	 = DIR_SYSTEM . 'logs/';
 	$dir_permission = substr( sprintf( '%o', fileperms( $path ) ), -4 );
                        return $dir_permission;
