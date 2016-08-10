@@ -1140,19 +1140,17 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
              $path = "../".$pm_galleries;
              $path2 = "../".$pm_fr_galleries; 
            /* Folder path */
+           /* Frame folder path */
              if(isset($data['createfolder'])){
                               $folder = "../".$pm_galleries . $data['createfolder']."/";
-                              $fr_folder = "../".$pm_fr_galleries . $data['createfolder']."/";
               } elseif($data['rmdir']){
                               $folder = "../".$pm_galleries . $data['rmdir']."/";
-                              $fr_folder = "../".$pm_fr_galleries . $data['rmdir']."/";
               } elseif($data['empty']){
                               $folder = "../".$pm_galleries . $data['empty']."/";
-                              $fr_folder = "../".$pm_fr_galleries . $data['empty']."/";
               }
-	if(isset($data['createfolder'])){
+  if(isset($data['createfolder'])){
                               
-                              $new_folder_id = $this->maxFolder();
+                  $new_folder_id = $this->maxFolder();
                             
                   if(!is_dir($folder)){
                                               $mask=umask(0);
@@ -1185,12 +1183,11 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                                  $data['status'] = '0';
                           }
    
-                          $mixthumb = $this->mixThumb();
+                        //  $mixthumb
                                 $this->db->query("INSERT INTO " . DB_PREFIX ."pm_gallery_folder SET
                                          folder_id='" . $new_folder_id ."',
                                          module_id = '" . $data['module_id'] . "',
                                          name = '" . $this->db->escape($data['createfolder']) . "',
-                                         mixthumb = '" . $mixthumb . "',
                                          size = '0',
                                          sort_order = '" . $data['sort_order'] . "',
                                          status = '" . $data['status'] ."'");
@@ -1204,8 +1201,8 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                          language_id = '" . $languages[$i] . "',
                                          date_modified=NOW()");
                               }
-          }
-	if(isset($data['rmdir'])){      
+   }
+   if(isset($data['rmdir'])){      
                                               if(is_dir($folder)){
                                                                if(is_writable($folder)){   
                                                                      $this->deleteAll($folder);
@@ -1239,9 +1236,9 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                        $this->db->query("DELETE FROM " . DB_PREFIX . "pm_gallery_image WHERE folder_id='".$folder_id."'");
                                        $this->db->query("UPDATE " . DB_PREFIX . "pm_gallery_folder SET size='',files='' WHERE folder_id='".$folder_id."'");
                           
-            }
-          }
-          public function imageCrop($img){                          
+     }
+  }
+  public function imageCrop($img){                          
                     $valid_exts = array('jpeg', 'jpg', 'png', 'gif');
                     $max_file_size = 200 * 1024; #200kb
                     $nw = $nh = 200; # image with & height
@@ -1285,32 +1282,9 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                       echo 'bad request!';
                     }
   }
-  private function getMixName(){
-           $hash = 'aabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYXZABCDEFGHIJKLMNOPQRSTUVWXYXZ123456789012345678901234567890';
-           $values = array();
-           $result = array();
-           $strlen = strlen($hash);
-           $strlen--;
-            for($i=0;$i<30;$i++){
-                    array_push($values,rand(1,$strlen));
-            }
-  
-  
-          for($i=1;$i<22;$i++){
-                   array_push($result,$hash[$values[$i]]);
-            } 
-              return implode("",$result);
-  }
-  private function mixThumb(){
-           $hash = '1234567899';
-           $values = array();
-           $strlen = strlen($hash);
-             for($i=0;$i<10;$i++){
-                    array_push($values,rand(1,$strlen));
-            }
-              return implode("",$values);
-  }
-  private function td_get_exif($image) {
+  // method getMixName
+  // micThumb method
+  protected function td_get_exif($image) {
                     $filename = $image['FILE']['FileName']; 
                     $exif = $image; 
                     if (is_array($exif) && isset($exif['EXIF'])) {
@@ -1326,33 +1300,33 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                     return serialize($data2);
                     }
    }
-   private function maxFolder(){
+   protected function maxFolder(){
                           $query = $this->db->query("SELECT MAX(folder_id) FROM ". DB_PREFIX ."pm_gallery_folder");
                           
                           return $query->row["MAX(folder_id)"]+1;
    }
-   private function maxImage(){
+   protected function maxImage(){
                           $query = $this->db->query("SELECT MAX(id) FROM ". DB_PREFIX ."pm_gallery_image");
                           
                           return $query->row["MAX(id)"];
    }
-   private function Replace($data){
+   protected function Replace($data){
                           $new = "";
                           for($i=10;$i<strlen($data);$i++){
                                             $new .=$data[$i];
                           }
                           return $new;
    }
-   private function getFileperms($dir){
+   protected function getFileperms($dir){
 	$dir_permission = substr( sprintf( '%o', fileperms( $dir ) ), -4 );
                        return $dir_permission;
     }
-    private function getLogsPerms(){
+    protected function getLogsPerms(){
 	$path	 = DIR_SYSTEM . 'logs/';
 	$dir_permission = substr( sprintf( '%o', fileperms( $path ) ), -4 );
                        return $dir_permission;
    }
-  private function changeArrayKeys($array){
+  protected function changeArrayKeys($array){
                           $new = array();
                          $keys = array_keys($array);
                          for($i=0;$i<count($keys);$i++){
