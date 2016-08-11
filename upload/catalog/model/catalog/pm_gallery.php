@@ -85,7 +85,7 @@ class ModelCatalogPMGallery extends Model{
                                                 "width" => $file['width'],
                                                 "height" => $file['height'],
                                                 "title" => $file['title'],
-                                                "gallery" => $file['folder']
+                                                "gallery" => HTTP_SERVER . $file['folder']
                                               );
                              }
                             if($file['id'] - $data['image_id'] == 1){
@@ -95,12 +95,27 @@ class ModelCatalogPMGallery extends Model{
                                                 "width" => $file['width'],
                                                 "height" => $file['height'],
                                                 "title" => $file['title'],
-                                                "gallery" => $file['folder']
+                                                "gallery" => HTTP_SERVER . $file['folder']
                                               );
                              }
                     }                        
            }
          }
          return array("prev"=>$prev, "next"=> $next);
+      }
+      public function getImages($data,$setting){
+       $query = $this->db->query("SELECT * FROM `". DB_PREFIX ."pm_gallery_folder` kgf LEFT JOIN `". DB_PREFIX ."pm_gallery_image` kgi ON (kgf.folder_id = kgi.folder_id) WHERE kgf.module_id = '" . $data['module_id'] . "' AND kgi.folder_id = '" . $data['folder_id'] . "'");
+       $image_info = array();
+
+       foreach($query->rows as $rows){
+          $image_info[] = array("filename" => $rows['filename'],
+                                "image_id" => $rows['id'],
+                                "width" => $rows['width'],
+                                "height" => $rows['height'],
+                                "title" => $rows['title'],
+                                "folder" => $rows['folder'],
+                                "gallery" => HTTP_SERVER . $setting['pm_galleries']);
+       }
+       return $image_info;
       }
 }
