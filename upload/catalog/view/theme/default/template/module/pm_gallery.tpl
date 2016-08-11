@@ -29,9 +29,19 @@
 }
 </style>
 
-
-
  <div id="gallery-content" class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+
+  <div id="fw_blend" style="margin-left:auto;margin-right:auto;background:#e3e3e3 none repeat scroll 0% 0%;">
+    <div id="slideshow" style="position:absolute;">
+      <div id="slideshow0" class="nivoSlider"></div>
+    </div>
+      <div id="img-nav" style="position:absolute;background:#ffffff;">
+        <div id="prev" style="width:auto;height:80px;position:relative;float:left;"></div>
+        <div id="next" style="width:auto;height:80px;position:relative;float:right;"></div>
+      </div>
+
+  </div>
+
            <div id="galleries" class="row">
                 <div id="folder-controller">
                 </div> 
@@ -89,7 +99,6 @@ $i++;
 }
 ?>
 <script type="text/javascript">
-  $("#gallery-content").append('<div id="fw_blend"></div>');
   $('.pm_gallery').css({"background-color":"<?php echo $pm_fr_color;?>"});
   $('.pm_gallery').css({"border":"solid 1px #000000"});
 
@@ -197,13 +206,99 @@ function basename(path) {
     return path.replace(/\\/g,'/').replace( /.*\//, '' );
 }
 </script>
-<script type="text/javascript"><!--
-$('#slideshow0').owlCarousel({
-  items: 6,
-  autoPlay: 3000,
-  singleItem: true,
-  navigation: true,
-  navigationText: ['<i class="fa fa-chevron-left fa-5x"></i>', '<i class="fa fa-chevron-right fa-5x"></i>'],
-  pagination: true
-});
---></script>
+<script type="text/javascript">
+function getImage(module_id,image_info, image_width, image_height, pm_max_pic_height, pm_bord_size, folder_id, image_id, txt_next,txt_prev){
+  // Fw Blend
+  var slider = 'nivo';
+  $("#fw_blend").css({"width":"100%"});
+  $("#fw_blend").css({"height":"100%"});
+  $("#fw_blend").css({"opacity":"0.96"});
+  $("#fw_blend").css({"position":"fixed"});
+  $("#fw_blend").css({"left":"0px"});
+  $("#fw_blend").css({"top":"0px"});
+  $("#fw_blend").css({"z-index":"10000"});
+  $("#fw_blend").css({"display":"block"});
+  $("#fw_blend").css({"text-align":"center"});
+
+
+  // slideshow
+  var next;
+  var prev;
+  var title_height;
+  var timage_height;
+      $.ajax({
+      url: 'index.php?route=module/pm_gallery/slider',
+      dataType: 'json',
+      type:'post',
+      data:'&module_id=' + module_id + '&folder_id=' + folder_id + '&image_id=' + image_id, 
+      success: function(json) {
+
+  var height = $(window).height();
+  var width = $("body").width();
+  var img_height = pm_max_pic_height*height;
+  var image = image_info;
+  var percent = 100;
+  var top = 0;
+  image_height = image_height;
+  if(image_height > img_height || img_height > image_height ){
+     percent = img_height/image_height;
+     img_width = Math.round((percent*image_width),0);
+  } else{
+     img_height = image_height;
+     img_width = image_width;
+  }
+  var xwidth = width-img_width;
+  var sleft = xwidth/2;
+  $("#slideshow").css({"margin-left":sleft+"px"});
+  $("#slideshow").css({"width":img_width +"px"});
+
+           for(var i = 0;i<json.length;i++){
+             if( json[i]['image_id'] == image_id ){
+              prev = i-1;
+              next = i+1;
+               $("#slideshow0").html('<img id="thepicture" style="position:relative;float:left;width:' + img_width + 'px;" src="' + json[i]['gallery'] +  json[i]['folder'] + '/' + json[i]['filename'] + '" alt="' + json[i]['title'] + '"/>'); 
+               $("#slideshow0").append('<div id="img-title" style="position:relative;height:auto;z-index:1000;width:' + img_width + 'px;clear:both;float:left;background:#ffffff;">' + json[i]['title'] + '</div>');
+
+        title_height = $("#img-title").height();
+        timage_height = img_height+title_height+80;
+        top_x = height-timage_height;
+        top = top_x/2;
+             }
+           }
+
+  $("#slideshow").css({"top": top});
+           $("#slideshow").slideUp();
+           $("#slideshow").slideDown();
+           if(json.length > 1){
+            var mtop = top+img_height+title_height+1;
+              $("#img-nav").css({"width":img_width + "px"});
+              $("#img-nav").css({"margin-left":sleft+"px"});
+              $("#img-nav").css({"margin-top":mtop+"px"});
+              var end = json.length;
+            for(var i = 0;i<json.length;i++){
+                if(i == prev){
+                 $("#prev").html('<a onclick="getImage(\'' + module_id + '\',\'' + json[i]['filename'] + '\',\'' + json[i]['width'] +'\',\'' + json[i]['height'] + '\',\'' + pm_max_pic_height + '\',\'' + pm_bord_size + '\',\'' + folder_id + '\',\'' + json[i]['image_id'] + '\',\'' + txt_next + '\',\'' + txt_prev + '\');"><img style="height:80px;" src="' + json[i]['gallery'] +  json[i]['folder'] + '/' + json[i]['filename'] + '" alt="' + json[i]['title'] + '" title="' + txt_prev + '"/></a>'); 
+                }
+                if(i == next  && next < end){
+                 $("#next").html('<a onclick="getImage(\'' + module_id + '\',\'' + json[i]['filename'] + '\',\'' + json[i]['width'] +'\',\'' + json[i]['height'] + '\',\'' + pm_max_pic_height + '\',\'' + pm_bord_size + '\',\'' + folder_id + '\',\'' + json[i]['image_id'] + '\',\'' + txt_next + '\',\'' + txt_prev + '\');"><img style="height:80px;" src="' + json[i]['gallery'] +  json[i]['folder'] + '/' + json[i]['filename'] + '" alt="' + json[i]['title'] + '" title="' + txt_next + '"/></a>'); 
+                }
+                if(prev < 0){
+                   $("#prev").empty();               
+                }
+                if(next == end){
+                   $("#next").empty();               
+                }
+             }
+            }
+
+        }
+     });
+  $(".pm_gallery").hide();
+  $(".gallery").hide();
+  $(".folder-description").hide();
+}
+function closeImage(){
+  $("#fw_blend").empty();
+  $("#fw_blend").hide();
+}
+</script>
