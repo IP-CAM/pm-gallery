@@ -30,3 +30,21 @@
 	-webkit-border-radius: 8px;
 	border-radius:8px;
 }
+#pmslider{
+	position:absolute;
+}
+#img-nav{
+    position:absolute;
+    background:#ffffff;
+}
+#prev, #next{
+	width:auto;
+	height:80px;
+	position:relative;
+}
+#prev{
+	float:left;
+}
+#next{
+	float:right;
+}
