@@ -11,6 +11,8 @@ $_['error_comment']       = 'Comment text is required!';
 // txt
 $_['txt_cancel']           = 'Cancel';
 $_['txt_comm_auto_string'] = 'Pm Image Gallery - Picture %x of %X Filename: %f, Gallery: %g';
+$_['txt_next']             = 'Next';
+$_['txt_prev']             = 'Prev';
 $_['txt_nav_next']         = 'Next page';
 $_['txt_nav_back']         = 'Previous page';
 $_['txt_nav_maxi']         = 'Gallery to maxim size'; 
