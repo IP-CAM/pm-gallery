@@ -1,4 +1,4 @@
- <style type="text/css">
+  <style type="text/css">
 .pm_thumbnail{
   border:<?php echo $pm_th_bord_size;?>px solid <?php echo $pm_th_bord_color;?>; 
   width:<?php echo $pm_th_width;?>px;
@@ -31,13 +31,13 @@
 
  <div id="gallery-content" class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
 
-  <div id="fw_blend" style="margin-left:auto;margin-right:auto;background:#e3e3e3 none repeat scroll 0% 0%;">
-    <div id="slideshow" style="position:absolute;">
-      <div id="slideshow0" class="nivoSlider"></div>
+  <div id="fw_blend">
+    <div id="pmslider">
+      <div id="pmslider0" class="nivoSlider"></div>
     </div>
-      <div id="img-nav" style="position:absolute;background:#ffffff;">
-        <div id="prev" style="width:auto;height:80px;position:relative;float:left;"></div>
-        <div id="next" style="width:auto;height:80px;position:relative;float:right;"></div>
+      <div id="img-nav">
+        <div id="prev"></div>
+        <div id="next"></div>
       </div>
 
   </div>
@@ -210,18 +210,18 @@ function basename(path) {
 function getImage(module_id,image_info, image_width, image_height, pm_max_pic_height, pm_bord_size, folder_id, image_id, txt_next,txt_prev){
   // Fw Blend
   var slider = 'nivo';
-  $("#fw_blend").css({"width":"100%"});
+ $("#fw_blend").css({"width":"100%"});
   $("#fw_blend").css({"height":"100%"});
   $("#fw_blend").css({"opacity":"0.96"});
   $("#fw_blend").css({"position":"fixed"});
   $("#fw_blend").css({"left":"0px"});
   $("#fw_blend").css({"top":"0px"});
-  $("#fw_blend").css({"z-index":"10000"});
+  $("#fw_blend").css({"z-index":"1000"});
   $("#fw_blend").css({"display":"block"});
-  $("#fw_blend").css({"text-align":"center"});
+  $("#fw_blend").css({"background":"#e3e3e3 none repeat scroll 0% 0%"});
 
 
-  // slideshow
+  // pmslider
   var next;
   var prev;
   var title_height;
@@ -249,15 +249,15 @@ function getImage(module_id,image_info, image_width, image_height, pm_max_pic_he
   }
   var xwidth = width-img_width;
   var sleft = xwidth/2;
-  $("#slideshow").css({"margin-left":sleft+"px"});
-  $("#slideshow").css({"width":img_width +"px"});
+  $("#pmslider").css({"margin-left":sleft+"px"});
+  $("#pmslider").css({"width":img_width +"px"});
 
            for(var i = 0;i<json.length;i++){
              if( json[i]['image_id'] == image_id ){
               prev = i-1;
               next = i+1;
-               $("#slideshow0").html('<img id="thepicture" style="position:relative;float:left;width:' + img_width + 'px;" src="' + json[i]['gallery'] +  json[i]['folder'] + '/' + json[i]['filename'] + '" alt="' + json[i]['title'] + '"/>'); 
-               $("#slideshow0").append('<div id="img-title" style="position:relative;height:auto;z-index:1000;width:' + img_width + 'px;clear:both;float:left;background:#ffffff;">' + json[i]['title'] + '</div>');
+               $("#pmslider0").html('<img id="thepicture" style="position:relative;float:left;width:' + img_width + 'px;" src="' + json[i]['gallery'] +  json[i]['folder'] + '/' + json[i]['filename'] + '" alt="' + json[i]['title'] + '"/>'); 
+               $("#pmslider0").append('<div id="img-title" style="position:relative;height:auto;z-index:1000;width:' + img_width + 'px;clear:both;float:left;background:#ffffff;">' + json[i]['title'] + '</div>');
 
         title_height = $("#img-title").height();
         timage_height = img_height+title_height+80;
@@ -266,9 +266,9 @@ function getImage(module_id,image_info, image_width, image_height, pm_max_pic_he
              }
            }
 
-  $("#slideshow").css({"top": top});
-           $("#slideshow").slideUp();
-           $("#slideshow").slideDown();
+  $("#pmslider").css({"top": top});
+           $("#pmslider").slideUp();
+           $("#pmslider").slideDown();
            if(json.length > 1){
             var mtop = top+img_height+title_height+1;
               $("#img-nav").css({"width":img_width + "px"});
