@@ -17,11 +17,8 @@ class ControllerModulePMGallery extends Controller {
 			'href'      => $this->url->link('common/home'),
 			'separator' => false
 		);
+    $setting['slider'] = 'nivo';
 		$this->document->setTitle($this->language->get('heading_title'));
-    $this->document->addScript('catalog/view/javascript/jquery/pm-gallery/getImage.js');
-    $this->document->addStyle('catalog/view/javascript/jquery/owl-carousel/owl.carousel.css');
-    $this->document->addScript('catalog/view/javascript/jquery/owl-carousel/owl.carousel.min.js');
-
      $data = array_merge($data,$setting);
      $data = array_merge($data,$this->language->load('module/pm_gallery'));
    
@@ -42,7 +39,7 @@ class ControllerModulePMGallery extends Controller {
        foreach($folders as $key => $value){
         $data = array_merge($data,$value);
         extract($value);
-       }                                ;
+       }
           if(!isset($this->request->get['album'])){
                     if($folders){
                           $data['folders'] = $folders;
