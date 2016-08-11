@@ -1,10 +1,10 @@
 <?php
 class ControllerModulePMGallery extends Controller {
 	private $error = array(); 
-  private $settings = array();
+  private $pm_gallery = array();
 
   public function index($setting) {
-    $this->settings = $setting;
+    $this->pm_gallery = $setting;
     $data = array();
 		$this->language->load('module/pm_gallery');
 
@@ -18,18 +18,17 @@ class ControllerModulePMGallery extends Controller {
 			'separator' => false
 		);
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->document->addStyle('catalog/view/javascript/jquery/pm-gallery/css/pm_gallery.css');
     $this->document->addScript('catalog/view/javascript/jquery/pm-gallery/getImage.js');
+    $this->document->addStyle('catalog/view/javascript/jquery/owl-carousel/owl.carousel.css');
+    $this->document->addScript('catalog/view/javascript/jquery/owl-carousel/owl.carousel.min.js');
 
      $data = array_merge($data,$setting);
      $data = array_merge($data,$this->language->load('module/pm_gallery'));
    
        extract($setting);
 
-                                     
                     $data['pm_gallery_module'] = true;
 
-     
                     $data['galleries'] = array();
                     $data['pm_help_text'] = str_replace("\r\n","",$data['txt_help_text']); 
                     $data['pm_help_text'] = str_replace("\n","",$data['txt_help_text']); 
@@ -80,7 +79,6 @@ class ControllerModulePMGallery extends Controller {
 		}
   }
   public function explorer(){
-  
         $json = array();
         $this->load->model('catalog/pm_gallery');
         if(isset($this->request->get['pm_galleries']) && isset($this->request->get['module_id']) && isset($this->request->get['folder_id'])){
@@ -95,7 +93,6 @@ class ControllerModulePMGallery extends Controller {
               $this->response->setOutput(json_encode($json));
   }
   public function navpics(){
-  
         $json = array();
         $json['success'] = '';
         $json['error'] = '';
@@ -116,7 +113,7 @@ class ControllerModulePMGallery extends Controller {
     $this->language->load('module/pm_gallery');
     $this->load->model("catalog/pm_gallery");
 
-        $json = array();
+    $json = array();
     $json['success'] = '';
     $json['error'] = '';
      if(isset($this->request->post['module_id'])){
@@ -182,5 +179,14 @@ class ControllerModulePMGallery extends Controller {
          $this->load->model("catalog/pm_gallery");
          $json = $this->model_catalog_pm_gallery->getSetting($module_id);
          return $json;
+  }
+  public function slider(){
+        $this->language->load('module/pm_gallery');
+        $this->load->model("catalog/pm_gallery");
+      if(isset($this->request->post['module_id'])){
+         $json = $this->model_catalog_pm_gallery->getImages($this->request->post,$this->settings($this->request->post['module_id']));
+         $this->response->addHeader('Content-Type: application/json');
+         $this->response->setOutput(json_encode($json));
+      }
   }
 }
