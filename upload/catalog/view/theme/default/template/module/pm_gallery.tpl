@@ -70,13 +70,13 @@ if($query->num_rows){
                            if($pm_th_title == 1){ ?>
                                 <div class="pm_thumbnail col-sm-<?php echo $pm_th_per_line?> col-md-<?php echo $pm_th_per_line;?> col-lg-<?php echo $pm_th_per_line;?> col-xs-12" style="height:auto;padding:0px;background:#ffffff;margin_top:15px; margin-left:<?php echo $pm_th_margin_left;?>px;">
                                 <div class="0_<?php echo $i;?> pic" style="width:100%;text-align:center;">
-                                 <img id="0_<?php echo $i;?>_<?php echo $x;?>" src="<?php echo $pm_galleries . $file['folder'] . '/thumbs/' . $file['filename'];?>" onclick="getImage('<?php echo $module_id;?>','<?php echo $pm_galleries . $file['folder'] . '/' . $file['filename'];?>', '<?php echo $file['width'];?>','<?php echo $file['height'];?>', '<?php echo $pm_max_pic_height;?>','<?php echo $pm_bord_size;?>', '<?php echo $file['folder_id'];?>', '<?php echo $file['id'];?>', '<?php echo $pm_show_image_nav;?>','<?php echo $txt_nav_close;?>','<?php echo $txt_nav_download;?>');" onload="this.style.visibility='visible'" alt="0_0_0" style="width:<?php echo $pm_th_perc_width;?>%;margin-top:10px;"/>
+                                 <img id="0_<?php echo $i;?>_<?php echo $x;?>" src="<?php echo $pm_galleries . $file['folder'] . '/thumbs/' . $file['filename'];?>" onclick="getImage('<?php echo $module_id;?>', '<?php echo $pm_galleries . $file['folder'] . '/' . $file['filename'];?>',  '<?php echo $file['width'];?>', '<?php echo $file['height'];?>', '<?php echo $pm_max_pic_height;?>', '<?php echo $pm_bord_size;?>', '<?php echo $file['folder_id'];?>','<?php echo $file['id'];?>','<?php echo $txt_next;?>','<?php echo $txt_prev;?>');" onload="this.style.visibility='visible'" alt="0_0_0" style="width:<?php echo $pm_th_perc_width;?>%;margin-top:10px;"/>
                                     </div>
                                     <div class="thumb_title"><?php echo $file['title'];?></div>
                                     </div>
                           <?php }
                           if($pm_th_title == 0){?>
-                            <img id="0_<?php echo $i;?>_<?php echo $x;?>" src="<?php echo $pm_galleries . $file['folder'] . '/thumbs/' . $file['filename'];?>" onclick="getImage('<?php echo $module_id;?>','<?php echo $pm_galleries . $file['folder'] . '/' . $file['filename'];?>', '<?php echo $file['width'];?>','<?php echo $file['height'];?>','<?php echo $pm_max_pic_height;?>','<?php echo $pm_bord_size;?>','<?php echo $file['folder_id'];?>','<?php echo $file['id'];?>','<?php echo $pm_show_image_nav;?>','<?php echo $txt_nav_close;?>','<?php echo $txt_nav_download;?>');" class="pm_thumbnail col-md-<?php echo $pm_th_per_line;?> col-lg-<?php echo $pm_th_per_line;?>' col-xs-12" style="width:<?php echo $pm_th_perc_width;?>%;margin-left:<?php echo $pm_th_margin_left;?>px;" onload="this.style.visibility='visible'" alt="0_0_0"/>;   
+                            <img id="0_<?php echo $i;?>_<?php echo $x;?>" src="<?php echo $pm_galleries . $file['folder'] . '/thumbs/' . $file['filename'];?>" onclick="getImage('<?php echo $module_id;?>','<?php echo $pm_galleries . $file['folder'] . '/' . $file['filename'];?>','<?php echo $file['width'];?>','<?php echo $file['height'];?>','<?php echo $pm_max_pic_height;?>','<?php echo $pm_bord_size;?>','<?php echo $file['folder_id'];?>','<?php echo $file['id'];?>','<?php echo $txt_next;?>','<?php echo $txt_prev;?>');" class="pm_thumbnail col-md-<?php echo $pm_th_per_line;?> col-lg-<?php echo $pm_th_per_line;?>' col-xs-12" style="width:<?php echo $pm_th_perc_width;?>%;margin-left:<?php echo $pm_th_margin_left;?>px;" onload="this.style.visibility='visible'" alt="0_0_0"/>;   
                           <?php } 
                 }                        
             }
@@ -135,7 +135,7 @@ $i++;
       }
 
       var bottom_height = height-top_height;
-      $("#pm_vcomm").html('<div id="comment-top" style="margin-top:-20px;background:#ffffff;height:' + top_height + 'px;float:left;width:' + width + 'px;"><div onClick="thePicture();" style="float:left;width:' + laske1 + 'px;text-align:center;line-height:' + top_height + 'px;"><img src="' + file + '" style="height:' + thumb_height + 'px;" alt=""></div><div id="comment" style="float:right;width:' + laske2 + 'px;margin-right:' + comm_margin_right + '%;padding-right:10px;"><h2><?php echo $txt_vcomm_lac;?></h2><form method="post" id="comment-form"><div class="form-group"><label class="col-sm-' + col_left + ' control-label" for="input-name"><span data-toggle="tooltip" title="<?php echo $pm_vcomm_name;?>"><?php echo $txt_vcomm_name;?></span></label><div class="col-sm-' + col_right + '"><input type="text" name="name" value="" placeholder="<?php echo $txt_vcomm_name;?>" id="form-input" class="' + input + '" /></div></div><div class="form-group"><label class="col-sm-' + col_left + ' control-label" for="input-comment"><?php echo $txt_vcomm_comm;?></label><div class="col-sm-' + col_right + '"><textarea name="pm_vcomm_comm" rows="5" placeholder="<?php echo $txt_vcomm_comm;?>" id="form-textarea" class="' + input + '"></textarea></div></div><div class="' + div_class + '"><button type="button" id="send-post" data-toggle="tooltip" title="<?php echo $pm_vcomm_post;?>" class="btn btn-primary"><i class="fa fa-save"></i></button><a href="" data-toggle="tooltip" title="<?php echo $txt_cancel;?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div></form></div></div><div id="comment-bottom"></div>');
+      $("#pm_vcomm").html('<div id="comment-top" style="margin-top:-20px;background:#ffffff;height:' + top_height + 'px;float:left;width:' + width + 'px;"><div onClick="thePicture();" style="float:left;width:' + laske1 + 'px;text-align:center;line-height:' + top_height + 'px;"><img src="' + file + '" style="height:' + thumb_height + 'px;" alt=""></div><div id="comment" style="float:right;width:' + laske2 + 'px;margin-right:' + comm_margin_right + '%;padding-right:10px;"><h2><?php echo $txt_vcomm_lac;?></h2><form method="post" id="comment-form"><div class="form-group"><label class="col-sm-' + col_left + ' control-label" for="input-name"><span data-toggle="tooltip" title="<?php echo $pm_vcomm_name;?>"><?php echo $txt_vcomm_name;?></span></label><div class="col-sm-' + col_right + '"><input type="text" name="name" value="" placeholder="<?php echo $txt_vcomm_name;?>" id="form-input" class="' + input + '" /></div></div><div class="form-group"><label class="col-sm-' + col_left + ' control-label" for="input-comment"><?php echo $txt_vcomm_comm;?></label><div class="col-sm-' + col_right + '"><textarea name="pm_vcomm_comm" rows="5" placeholder="<?php echo $txt_vcomm_comm;?>" id="form-textarea" class="' + input + '"></textarea></div></div><div class="' + div_class + '"><button type="button" id="send-post" data-toggle="tooltip" title="<?php echo $txt_vcomm_post;?>" class="btn btn-primary"><i class="fa fa-save"></i></button><a href="" data-toggle="tooltip" title="<?php echo $txt_cancel;?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div></form></div></div><div id="comment-bottom"></div>');
 
       if(height > width){
         $('.pull-center').css({"text-align":"left"});
@@ -197,3 +197,13 @@ function basename(path) {
     return path.replace(/\\/g,'/').replace( /.*\//, '' );
 }
 </script>
+<script type="text/javascript"><!--
+$('#slideshow0').owlCarousel({
+  items: 6,
+  autoPlay: 3000,
+  singleItem: true,
+  navigation: true,
+  navigationText: ['<i class="fa fa-chevron-left fa-5x"></i>', '<i class="fa fa-chevron-right fa-5x"></i>'],
+  pagination: true
+});
+--></script>
