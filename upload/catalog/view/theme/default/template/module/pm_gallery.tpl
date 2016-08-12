@@ -1,4 +1,4 @@
-  <style type="text/css">
+    <style type="text/css">
 .pm_thumbnail{
   border:<?php echo $pm_th_bord_size;?>px solid <?php echo $pm_th_bord_color;?>; 
   width:<?php echo $pm_th_width;?>px;
@@ -33,6 +33,7 @@
 
   <div id="fw_blend">
     <div id="pmslider">
+  <div id="pm_inshadow"><div id="pm_close"></div></div>
       <div id="pmslider0" class="nivoSlider"></div>
     </div>
       <div id="img-nav">
@@ -105,7 +106,7 @@ $i++;
   function slide_vcomm(module_id,folder_id,image_id,file,width,height){
       $("#kiv_share").hide();
       $("#thepicture").slideUp();
-      $("#kiv_inshadow").append('<div id="pm_vcomm"></div>');
+      $("#pm_inshadow").append('<div id="pm_vcomm"></div>');
       $("#pm_vcomm").css({"width":width + "px"});
       $("#pm_vcomm").css({"height":height + "15px"});
       $("#pm_vcomm").css({"background":"<?php echo $pm_vcomm_header_color;?>"});
@@ -209,7 +210,6 @@ function basename(path) {
 <script type="text/javascript">
 function getImage(module_id,image_info, image_width, image_height, pm_max_pic_height, pm_bord_size, folder_id, image_id, txt_next,txt_prev){
   // Fw Blend
-  var slider = 'nivo';
  $("#fw_blend").css({"width":"100%"});
   $("#fw_blend").css({"height":"100%"});
   $("#fw_blend").css({"opacity":"0.96"});
@@ -219,7 +219,6 @@ function getImage(module_id,image_info, image_width, image_height, pm_max_pic_he
   $("#fw_blend").css({"z-index":"1000"});
   $("#fw_blend").css({"display":"block"});
   $("#fw_blend").css({"background":"#e3e3e3 none repeat scroll 0% 0%"});
-
 
   // pmslider
   var next;
@@ -266,14 +265,45 @@ function getImage(module_id,image_info, image_width, image_height, pm_max_pic_he
              }
            }
 
-  $("#pmslider").css({"top": top});
-           $("#pmslider").slideUp();
-           $("#pmslider").slideDown();
+           $("#pmslider").css({"top": top});
+           pmslider();
+          // inshadow
+          $("#pm_inshadow").css({"position":"absolute"});
+          $("#pm_inshadow").css({"margin-left":"0%"});
+          $("#pm_inshadow").css({"margin-top":"0%"});
+          $("#pm_inshadow").css({"z-index":"10001"});
+          $("#pm_inshadow").css({"background":"transparent none repeat scroll 0% 0%"});
+          $("#pm_inshadow").css({"padding":"0px"});
+          $("#pm_inshadow").css({"display":"block"});
+          $("#pm_inshadow").css({"overflow":"hidden"});
+          $("#pm_inshadow").css({"cursor":"pointer"});
+          $("#pm_inshadow").css({"width": img_width+"px"});
+
+          // Buttons
+          $("#pm_close").css({"position":"relative"});
+          $("#pm_close").css({"float":"right"});
+          $("#pm_close").css({"width":"20px"});
+          $("#pm_close").css({"height": "20px"});
+          $("#pm_close").css({"background":"rgb(102, 102, 102) none repeat scroll 0% 0%"});
+          $("#pm_close").css({"z-index":"10000"});
+          $("#pm_close").css({"padding":"1px 1px 3px"});
+          $("#pm_close").css({"line-height":"12px"});
+          $("#pm_close").css({"box-shadow":"0px 0px 10px rgb(0, 0, 0)"});
+          $("#pm_close").html('<img id="close" src="catalog/view/javascript/jquery/pm-gallery/image/pm_nav_close.png" title="<?php echo $txt_nav_close;?>" onclick="closeImage();">');
+          $("#close").css({"cursor":"pointer"});
+          $("#close").css({"border":"0px"});
+          $("#close").css({"margin":"0px 2px 0px 2px"});
+          $("#close").css({"float":"right"});
+          $("#close").css({"z-index":"10006"});
+
            if(json.length > 1){
             var mtop = top+img_height+title_height+1;
               $("#img-nav").css({"width":img_width + "px"});
               $("#img-nav").css({"margin-left":sleft+"px"});
               $("#img-nav").css({"margin-top":mtop+"px"});
+
+
+
               var end = json.length;
             for(var i = 0;i<json.length;i++){
                 if(i == prev){
@@ -293,9 +323,6 @@ function getImage(module_id,image_info, image_width, image_height, pm_max_pic_he
 
         }
      });
-  $(".pm_gallery").hide();
-  $(".gallery").hide();
-  $(".folder-description").hide();
 }
 function closeImage(){
   $("#fw_blend").empty();
