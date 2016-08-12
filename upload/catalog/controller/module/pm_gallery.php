@@ -25,6 +25,8 @@ class ControllerModulePMGallery extends Controller {
        extract($setting);
 
     $this->document->addStyle('catalog/view/javascript/jquery/pm-gallery/css/pm-gallery.css');
+    $this->document->addScript('catalog/view/javascript/jquery/pm-gallery/pmslider.js');
+
                     $data['pm_gallery_module'] = true;
 
                     $data['galleries'] = array();
