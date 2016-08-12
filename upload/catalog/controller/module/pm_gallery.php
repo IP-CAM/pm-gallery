@@ -17,16 +17,21 @@ class ControllerModulePMGallery extends Controller {
 			'href'      => $this->url->link('common/home'),
 			'separator' => false
 		);
-    $setting['slider'] = 'nivo';
 		$this->document->setTitle($this->language->get('heading_title'));
      $data = array_merge($data,$setting);
      $data = array_merge($data,$this->language->load('module/pm_gallery'));
    
        extract($setting);
-
-    $this->document->addStyle('catalog/view/javascript/jquery/pm-gallery/css/pm-gallery.css');
-    $this->document->addScript('catalog/view/javascript/jquery/pm-gallery/pmslider.js');
-
+    if($pm_slider_type == 'pmslider'){
+        $this->document->addStyle('catalog/view/javascript/jquery/pm-gallery/css/pm-gallery.css');
+       $this->document->addScript('catalog/view/javascript/jquery/pm-gallery/pmslider.js');
+    }
+    if($pm_slider_type == 'slice'){
+       $this->document->addStyle('catalog/view/javascript/jquery/pm-gallery/css/slicebox.css');
+       $this->document->addStyle('catalog/view/javascript/jquery/pm-gallery/css/custom.css');
+       $this->document->addStyle('catalog/view/javascript/jquery/pm-gallery/css/demo.css');
+       $this->document->addScript('catalog/view/javascript/jquery/pm-gallery/modernizr.custom.46884.js');
+   }
                     $data['pm_gallery_module'] = true;
 
                     $data['galleries'] = array();
