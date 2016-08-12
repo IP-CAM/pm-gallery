@@ -48,6 +48,7 @@ $_['entry_fr_width'] = 'Frame Width';
 $_['entry_fr_width_help'] ='This two parameters set the dimension of the gallery in pixels. They are equivallent to css-width and height of the koschtitgallery-div.';
 $_['entry_fr_height'] = 'Frame Height';
 $_['entry_fr_color'] = 'Frame Color';
+$_['entry_slider_type'] = 'Slider type';
 $_['entry_fr_color_help'] = 'The background color of the gallery. Set a hex-color \'#rrggbb\' or \'none\'.';
 $_['entry_pm_mixname'] = 'Mixed of Filename';
 $_['entry_pm_mixname_help'] = 'Off in the original file name and the name of mixed';
