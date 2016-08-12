@@ -1,4 +1,4 @@
-    <style type="text/css">
+  <style type="text/css">
 .pm_thumbnail{
   border:<?php echo $pm_th_bord_size;?>px solid <?php echo $pm_th_bord_color;?>; 
   width:<?php echo $pm_th_width;?>px;
@@ -28,9 +28,12 @@
 <?php } ?>        
 }
 </style>
-
+<?php if($pm_slider_type == 'slice'){?>
+<script type="text/javascript" src="catalog/view/javascript/jquery/pm-gallery/jquery.slicebox.js"></script>
+<?php } ?>
  <div id="gallery-content" class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
 
+<?php if($pm_slider_type == 'pmslider'){?>
   <div id="fw_blend">
     <div id="pmslider">
   <div id="pm_inshadow"><div id="pm_close"></div></div>
@@ -42,8 +45,8 @@
       </div>
 
   </div>
-
-           <div id="galleries" class="row">
+<?php } ?>
+          <div id="galleries" class="row">
                 <div id="folder-controller">
                 </div> 
           </div>
@@ -62,11 +65,14 @@ if($query->num_rows){
  $i = 0;
 
    foreach($query->rows as $result){  ?>   
-
+<?php if($pm_slider_type == 'pmslider'){?>
 <h2 class="gallery"><?php echo $result['title'];?></h2>
+<?php } ?>
   <div class="folder-description"><?php echo !empty($result['description']) ? $result['description']: '';?></div>
-  <div class="pm_gallery col-md-12 col-lg-12 col-xs-12"  title="<?php echo $result['folder'];?>" id="0_<?php echo $i;?>">
+  <div class="<?php if($pm_slider_type == 'pmslider'){?>pm_gallery<?php } else {?>slicebox<?php } ?> col-md-12 col-lg-12 col-xs-12"<?php if($pm_slider_type == 'pmslider'){?>  title="<?php echo $result['folder'];?>"<?php }?> id="0_<?php echo $i;?>">
 
+      <div class="wrapper">
+        <ul id="sb-slider" class="sb-slider">
 <?php
  
        $sql = "SELECT * FROM `". DB_PREFIX ."pm_gallery_folder` pmgf LEFT JOIN `". DB_PREFIX ."pm_gallery_image` pmgi ON (pmgf.folder_id = pmgi.folder_id) WHERE pmgf.module_id = '" . $module_id . "' AND pmgi.folder_id = '" . $result['folder_id'] . "'";
@@ -77,7 +83,7 @@ if($query->num_rows){
           $x = 0;
             foreach ($query2->rows as $file) {
                 if( is_file( $pm_galleries . $file['folder'] . '/' . $file['filename'] ) ){
-                
+                    if($pm_slider_type == 'pmslider'){
                            if($pm_th_title == 1){ ?>
                                 <div class="pm_thumbnail col-sm-<?php echo $pm_th_per_line?> col-md-<?php echo $pm_th_per_line;?> col-lg-<?php echo $pm_th_per_line;?> col-xs-12" style="height:auto;padding:0px;background:#ffffff;margin_top:15px; margin-left:<?php echo $pm_th_margin_left;?>px;">
                                 <div class="0_<?php echo $i;?> pic" style="width:100%;text-align:center;">
@@ -88,16 +94,70 @@ if($query->num_rows){
                           <?php }
                           if($pm_th_title == 0){?>
                             <img id="0_<?php echo $i;?>_<?php echo $x;?>" src="<?php echo $pm_galleries . $file['folder'] . '/thumbs/' . $file['filename'];?>" onclick="getImage('<?php echo $module_id;?>','<?php echo $pm_galleries . $file['folder'] . '/' . $file['filename'];?>','<?php echo $file['width'];?>','<?php echo $file['height'];?>','<?php echo $pm_max_pic_height;?>','<?php echo $pm_bord_size;?>','<?php echo $file['folder_id'];?>','<?php echo $file['id'];?>','<?php echo $txt_next;?>','<?php echo $txt_prev;?>');" class="pm_thumbnail col-md-<?php echo $pm_th_per_line;?> col-lg-<?php echo $pm_th_per_line;?>' col-xs-12" style="width:<?php echo $pm_th_perc_width;?>%;margin-left:<?php echo $pm_th_margin_left;?>px;" onload="this.style.visibility='visible'" alt="0_0_0"/>;   
-                          <?php } 
-                }                        
+                          <?php }
+                          } 
+if($pm_slider_type == 'slice'){?>
+                          <li class="sb">
+                             <img  src="<?php echo $pm_galleries . $file['folder'] . '/' . $file['filename'];?>" id="image<?php echo $x;?>"/>
+                             <div class="sb-description" style="width:100%">
+                              <h3><?php echo $file['title'];?></h3>
+                             </div>
+                          </li>
+ 
+<script type="text/javascript">
+  var height = $(window).height();
+  var width = $("#gallery-content").width();
+  var img_height = <?php echo $pm_max_pic_height;?>*height;
+  var percent = 100;
+  var top = 0;
+  var image_height = '<?php echo $file['height'];?>';
+  var image_width = '<?php echo $file['width'];?>';
+  if(image_height > img_height || img_height == image_height ){
+     percent = img_height/image_height;
+    var img_width = Math.round((percent*image_width),0);
+  } else{
+     img_height = image_height;
+    var img_width = image_width;
+  }
+  var swidth = width-img_width;
+  var mleft = swidth/2/2;
+
+$("#image<?php echo $x;?>").css({"height":img_height + "px"});
+$(".sb").css({"margin-left":mleft + "px"});
+$(".sb-description").css({"width":img_width + "px"});
+</script>
+              <?php  }   
+              $x++;
+              }                     
             }
       } ?>
+      </ul>
+
+</div>
+<?php if($pm_slider_type == 'slice'){?>
+        <div id="shadow" class="shadow"></div>
+        <div id="nav-arrows" class="nav-arrows">
+          <a href="#">Next</a>
+          <a href="#">Previous</a>
+        </div>
+        <div id="nav-dots" class="nav-dots">
+          <span class="nav-dot-current"></span>
+      <?php if($query2->num_rows){
+              if(count($query2->rows) > 1){
+                for ($i=1; $i < count($query2->rows); $i++) { ?>
+                  <span></span>
+      <?php     }
+              }
+          } ?>
+        </div>
+<?php } ?>
 </div>
 <?php
 $i++;
 
    } 
 }
+
 ?>
 <script type="text/javascript">
   $('.pm_gallery').css({"background-color":"<?php echo $pm_fr_color;?>"});
@@ -329,3 +389,82 @@ function closeImage(){
   $("#fw_blend").hide();
 }
 </script>
+<?php if($pm_slider_type == 'slice'){?>
+<script type="text/javascript">
+      $(function() {
+
+        var Page = (function() {
+
+          var $navArrows = $( '#nav-arrows' ).hide(),
+            $navDots = $( '#nav-dots' ).hide(),
+            $nav = $navDots.children( 'span' ),
+            $shadow = $( '#shadow' ).hide(),
+            slicebox = $( '#sb-slider' ).slicebox( {
+              onReady : function() {
+
+                $navArrows.show();
+                $navDots.show();
+                $shadow.show();
+
+              },
+              onBeforeChange : function( pos ) {
+
+                $nav.removeClass( 'nav-dot-current' );
+                $nav.eq( pos ).addClass( 'nav-dot-current' );
+
+              }
+            } ),
+            
+            init = function() {
+
+              initEvents();
+              
+            },
+            initEvents = function() {
+
+              // add navigation events
+              $navArrows.children( ':first' ).on( 'click', function() {
+
+                slicebox.next();
+                return false;
+
+              } );
+
+              $navArrows.children( ':last' ).on( 'click', function() {
+                
+                slicebox.previous();
+                return false;
+
+              } );
+
+              $nav.each( function( i ) {
+              
+                $( this ).on( 'click', function( event ) {
+                  
+                  var $dot = $( this );
+                  
+                  if( !slicebox.isActive() ) {
+
+                    $nav.removeClass( 'nav-dot-current' );
+                    $dot.addClass( 'nav-dot-current' );
+                  
+                  }
+                  
+                  slicebox.jump( i + 1 );
+                  return false;
+                
+                } );
+                
+              } );
+
+            };
+
+            return { init : init };
+
+        })();
+
+        Page.init();
+
+      });
+</script>
+<?php } ?>
