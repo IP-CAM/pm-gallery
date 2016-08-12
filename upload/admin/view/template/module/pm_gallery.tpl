@@ -519,7 +519,27 @@
             <div class="col-sm-5"><?php echo $entry_thumbs_to_disk_help; ?></div>
     </div>
 </div>
-<div class="tab-pane" id="tab-full">        
+<div class="tab-pane" id="tab-full">  
+   <div class="form-group">
+            <label class="col-sm-2 control-label"><?php echo $entry_slider_type; ?></label>
+            <div class="col-sm-5">
+                  <label class="radio-inline">
+              <?php   if($pm_slider_type == 'slice'){ ?>
+              <input name="pm_slider_type" type="radio" value="slice"  checked="checked"/> Slicebox
+               <?php } else{ ?>
+              <input name="pm_slider_type" type="radio" value="slice"/> Slicebox
+                <?php } ?>
+                  </label>
+                  <label class="radio-inline">
+              <?php   if($pm_slider_type == 'pmslider'){ ?>
+               <input name="pm_slider_type" type="radio" value="pmslider"  checked="checked"/> Pmslider
+               <?php } else{ ?>
+               <input name="pm_slider_type" type="radio" value="pmslider"/> Pmslider
+               <?php } ?>
+                  </label>
+                </div>   
+                <div class="col-sm-5"><?php echo $entry_resize_auto_help; ?></div>
+    </div>      
      <div class="form-group">
             <label class="col-sm-2 control-label" for="input-ki-radius"><?php echo $entry_pm_radius; ?></label>
             <div class="col-sm-5">
