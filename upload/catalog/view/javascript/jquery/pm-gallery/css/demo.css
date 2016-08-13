@@ -31,6 +31,16 @@
     overflow-x: hidden;
 }
 
+.folder-description{
+	margin-left:auto;
+	margin-right:auto;
+	border:solid 1px #e7e7e7;
+	padding:6px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius:8px;
+}
+
 a {
 	color: #000;
 	text-decoration: none;
