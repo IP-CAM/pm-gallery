@@ -46,10 +46,7 @@
 
   </div>
 <?php } ?>
-          <div id="galleries" class="row">
-                <div id="folder-controller">
-                </div> 
-          </div>
+         
 </div>
 <?php
    if(!$album){
@@ -97,6 +94,27 @@ if($query->num_rows){
                           <?php }
                           } 
 if($pm_slider_type == 'slice'){?>
+<script type="text/javascript">
+  var aheight = $(window).height();
+  var width = $("#content").width();
+  var aimg_height = <?php echo $pm_max_pic_height;?>*aheight;
+  var percent = 100;
+  var top = 0;
+  var image_height = '<?php echo $file['height'];?>';
+  var image_width = '<?php echo $file['width'];?>';
+  if(image_height > aimg_height || aimg_height == image_height ){
+     percent = aimg_height/image_height;
+    var img_width = Math.round((percent*image_width),0);
+  } else{
+    var img_width = image_width;
+  }
+  var swidth = width-img_width;
+  var mleft = swidth/2/2;
+  var cwidth = width-mleft;
+
+$("#gallery-content").css({"width":width + "px"});
+$("#sb-slider").css({"padding-left":mleft + "px"});
+</script>
                           <li class="sb">
                              <img  src="<?php echo $pm_galleries . $file['folder'] . '/' . $file['filename'];?>" id="image<?php echo $x;?>"/>
                              <div class="sb-description" style="width:100%">
@@ -119,11 +137,8 @@ if($pm_slider_type == 'slice'){?>
      img_height = image_height;
     var img_width = image_width;
   }
-  var swidth = width-img_width;
-  var mleft = swidth/2/2;
 
 $("#image<?php echo $x;?>").css({"height":img_height + "px"});
-$(".sb").css({"margin-left":mleft + "px"});
 $(".sb-description").css({"width":img_width + "px"});
 </script>
               <?php  }   
