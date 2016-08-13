@@ -113,6 +113,7 @@ if($pm_slider_type == 'slice'){?>
   var cwidth = width-mleft;
 
 $("#gallery-content").css({"width":width + "px"});
+$(".folder-description").css({"width":100+img_width + "px"});
 $("#sb-slider").css({"padding-left":mleft + "px"});
 </script>
                           <li class="sb">
