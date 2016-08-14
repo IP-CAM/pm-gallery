@@ -315,7 +315,7 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
               $i=0;
               foreach($results as $result){
                         
-                  if($result['size'] > 0) $size = round($result['size']/1024/1024,2); else $size = 0;  
+                  /* if($result['size'] > 0) $size = round($result['size']/1024/1024,2); else $size = 0; */ 
                   /*   image frame   "size_of_fr"=>$size_of_fr,    */
                   if($result['size_of_fr'] > 0) $size_of_fr = round($result['size_of_fr']/1024/1024,2); else $size_of_fr = 0;    
                    $info[$i] = array($result['folder'] => array("folder_id"=>$result['folder_id'],
