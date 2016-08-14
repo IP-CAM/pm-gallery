@@ -946,8 +946,7 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                                                                             
                    }
   }
-  public function deleteImage($data,$fr_galleries){
-                  $response = "";
+  public function deleteImage($data){
                   $pm_galleries = $data['pm_galleries'];
                   if(isset($data['album']))
                                     $gallery = rawurldecode($data['album']);
@@ -960,8 +959,7 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                      
                   // -------------- Sicherheitsabfragen!
                   if(!is_file("../".$pm_galleries.$gallery."/".$file)) {  $response = "not_found";}
-      
-         
+
                                     $imgfile = "../".$pm_galleries.$gallery."/".$file;
                                     $thumbfile = "../".$pm_galleries.$gallery."/thumbs/".$thumb;
                                     
@@ -974,8 +972,8 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                         $folder_id = $query->row['folder_id'];     
                         
                                  $this->db->query("UPDATE  " . DB_PREFIX . "pm_gallery_folder SET
-                      	                                                           files = files-1,
-                                                                                         size = size-" . $size ."  WHERE folder_id='" . $folder_id ."'"); 
+                      	                                                                         files = files-1,
+                                                                                                 size = size-" . $size ."  WHERE folder_id='" . $folder_id ."'"); 
                               
                               $this->db->query("DELETE FROM " . DB_PREFIX ."pm_gallery_image WHERE folder_id='".$folder_id."' AND mixname = '".$file."'");   
                               $this->db->query("DELETE FROM " . DB_PREFIX ."pm_gallery_admin_comment WHERE folder_name='".$gallery."' AND image_name = '".$file."'");  
@@ -983,14 +981,10 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                               }else{
                                                      //     $response =  "Error";
                                               }
-                                    if(is_file($thumbfile))@unlink($thumbfile);
-                                      if(file_exists($imgfile)) {
-                                              //  $response =  "Error Permission";
-                                                } 
-                             if(is_file($fr_imgfile)){
+                            if(is_file($thumbfile))@unlink($thumbfile);
+                             /*  if(is_file($fr_imgfile)){
                                                  @unlink($fr_imgfile);
-                                }
-                                    return $response;
+                                } */
 
   }
   public function imageResize($data,$pm_gallery,$dir,$file){
