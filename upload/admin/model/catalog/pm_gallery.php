@@ -71,8 +71,8 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                       comment='". $this->db->escape($rows[$languages[$i]]['comment'])."',
                                       language_id='".$languages[$i]."'");
                                     }
-        }                  
-       public function editComment($data){
+  }                  
+  public function editComment($data){
                  $k = array_keys($data['edit_pm_gallery']);
                  for($i=0;$i<count($k);$i++){
                    if(trim($data['edit_pm_gallery'][$k[$i]]['id']) !=''){
@@ -91,7 +91,6 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                     $this->db->query("UPDATE " . DB_PREFIX . "pm_gallery_viewercomment SET name='".$this->db->escape($data['name'])."', comment='" . $this->db->escape($data['comment']) . "'
                     WHERE id='".$data['id']."'");
   }
-
   private function calcSize($dir){
 	   $size = 0;
 	   $num = 0;
@@ -109,7 +108,6 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
 	  }
 	  return array($num, $size);
   }
-       
   public function getFolders($module_id){
                $query = $this->db->query("SELECT * FROM " . DB_PREFIX ."pm_gallery_folder WHERE `module_id` = '" . $module_id ." ' ORDER BY sort_order ASC");
                      
@@ -136,19 +134,19 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                                                       }
                                                } 
                                                    $image_info[] = array('name'=>$result['folder'],
-                                                                                     'filename'=>$result['filename'],
-                                                                                     'description' => '',
-                                                                                     'id'=> $result['id'],
-                                                                                     'mixname'=>$result['mixname'],
-                                                                                      'filesize'=>$result['filesize'],
-                                                                                      'sort_order'=>$result['sort_order']);              
-                                                                                 $i++;
+                                                                         'filename'=>$result['filename'],
+                                                                         'description' => '',
+                                                                         'id'=> $result['id'],
+                                                                         'mixname'=>$result['mixname'],
+                                                                         'filesize'=>$result['filesize'],
+                                                                         'sort_order'=>$result['sort_order']);              
+                                $i++;
                                                
                        }
 
                        for($i=0;$i<count($desc);$i++){
                                               $image_info[$i]['description'] = $desc[$i];
-                         }
+                       }
                      
               return $image_info;
   }
@@ -160,14 +158,12 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
               return $results;;
   }
   public function folderSizetoDatabase($data){
-                    
                               $this->db->query("UPDATE  " . DB_PREFIX . "pm_gallery_folder SET
-                                                                                         size = '".$data['file_sizes']."'  WHERE name='" . $data['folder_name'] ."'"); 
+                                                                                              size = '".$data['file_sizes']."'  WHERE name='" . $data['folder_name'] ."'"); 
   }
   public function editImageTitle($data){
-                    
                               $this->db->query("UPDATE  " . DB_PREFIX . "pm_gallery_image SET
-                                                                                         title = '".$this->db->escape($data['edit_title'])."'  WHERE id='" . $data['image_id'] ."'"); 
+                                                                                             title = '".$this->db->escape($data['edit_title'])."'  WHERE id='" . $data['image_id'] ."'"); 
   }
   public function deleteViewerComment($data){
                              $this->db->query("DELETE FROM " . DB_PREFIX ."pm_gallery_viewercomment WHERE id = '".$data['id']."'");
@@ -189,9 +185,9 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                     @rename( '../'.$pm_galleries.$result['name'],'../'.$pm_galleries.$info['name']);
                     // image frame loop
                       $this->db->query("UPDATE  " . DB_PREFIX . "pm_gallery_folder SET
-                      	                                                           name = '". $info['name'] ."',
-                                                                                         sort_order= '" . $info['sort_order']. "',
-                                                                                         status = '".$info['status'] ."' WHERE folder_id='" . $info['folder_id'] ."'"); 
+                      	                                                              name = '". $info['name'] ."',
+                                                                                      sort_order= '" . $info['sort_order']. "',
+                                                                                      status = '".$info['status'] ."' WHERE folder_id='" . $info['folder_id'] ."'"); 
                     $update = $data['updatefolder'];
                     $lang = array_keys($update);
                     
@@ -287,20 +283,20 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                                                       $desc[$i] = $description->row['comment'];
                                                                       }
                                                } 
-                                                   $image_info[] = array('name'=>$result['name'],
-                                                                                     'filename'=>$result['filename'],
-                                                                                     'description' => '',
-                                                                                     'id'=> $result['id'],
-                                                                                     'mixname'=>$result['mixname'],
-                                                                                      'filesize'=>$result['filesize'],
-                                                                                      'sort_order'=>$result['sort_order']);              
-                                                                                 $i++;
+                                                    $image_info[] = array('name'=>$result['name'],
+                                                                          'filename'=>$result['filename'],
+                                                                           'description' => '',
+                                                                           'id'=> $result['id'],
+                                                                           'mixname'=>$result['mixname'],
+                                                                           'filesize'=>$result['filesize'],
+                                                                           'sort_order'=>$result['sort_order']);              
+                               $i++;
                                                
                        }
 
                        for($i=0;$i<count($desc);$i++){
                                               $image_info[$i]['description'] = $desc[$i];
-                         }
+                       }
                      
               return $image_info;
   }
@@ -319,20 +315,20 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
               $i=0;
               foreach($results as $result){
                         
-                  if($result['size'] > 0) $size = round($result['size']/1024/1024,2); else $size = 0;    
+                  if($result['size'] > 0) $size = round($result['size']/1024/1024,2); else $size = 0;  
+                  /*   image frame   "size_of_fr"=>$size_of_fr,    */
                   if($result['size_of_fr'] > 0) $size_of_fr = round($result['size_of_fr']/1024/1024,2); else $size_of_fr = 0;    
                    $info[$i] = array($result['folder'] => array("folder_id"=>$result['folder_id'],
-                                                              "module_id"=>$result['module_id'],
-                                                                                   "files"=> $result['files'],
-                                                                                    "size"=> $size,
-                                                                                    "size_of_fr"=>$size_of_fr,
-                                                                                    "sort_order"=>$result['sort_order'],
-                                                                                    "status"=>$result['status']));
+                                                                "module_id"=>$result['module_id'],
+                                                                "files"=> $result['files'],
+                                                                "size"=> $size,
+                                                                "sort_order"=>$result['sort_order'],
+                                                                "status"=>$result['status']));
                         $i++;
-                      }
+                   }
               return $info;
-          }
-          public function getFolderDescription($folder_id){
+  }
+  public function getFolderDescription($folder_id){
             $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "language");
             $results = $query->rows;
             
@@ -352,8 +348,8 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                $i++;
              }
                return $description_info;
-          }
-          public function editImageOrder($data){
+  }
+  public function editImageOrder($data){
            foreach ($data['image_change'] as $img){
                          
            $query2 = $this->db->query("UPDATE " . DB_PREFIX . "pm_gallery_image SET
@@ -516,8 +512,8 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                                       
                        }
          }
-}
-    public function addImage($data,$pm_galleries,$pm_th_width,$pm_th_height,$pm_th_to_square,$pm_mixname,$maxx,$maxy,$module_id){
+  }
+  public function addImage($data,$pm_galleries,$pm_th_width,$pm_th_height,$pm_th_to_square,$pm_mixname,$maxx,$maxy,$module_id){
                   $pm_watermark_hori = $data['watermark_hori'];
                   $pm_watermark_vert = $data['watermark_vert'];
                   $pm_watermark_size = $data['watermark_size'];
@@ -1065,8 +1061,8 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
 
               }
                                                                                                      
-          }
-          private function deleteAll($folder,$info="",$last=""){
+  }
+  private function deleteAll($folder,$info="",$last=""){
                     $iterator = new DirectoryIterator($folder);
                     foreach ($iterator as $fileInfo) {
                               if($fileInfo->isDot()){
@@ -1090,8 +1086,8 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                          return true;
                        }
                 }
-          }          
-          private function emptyAll($folder){
+  }          
+  private function emptyAll($folder){
                     $iterator = new DirectoryIterator($folder);
                     foreach ($iterator as $fileInfo) {
                               if($fileInfo->isDot()){
@@ -1286,33 +1282,33 @@ $iterator = new DirectoryIterator($pm_gallery.$folder);
                     }
                     return serialize($data2);
                     }
-   }
-   protected function maxFolder(){
+  }
+  protected function maxFolder(){
                           $query = $this->db->query("SELECT MAX(folder_id) FROM ". DB_PREFIX ."pm_gallery_folder");
                           
                           return $query->row["MAX(folder_id)"]+1;
-   }
-   protected function maxImage(){
+  }
+  protected function maxImage(){
                           $query = $this->db->query("SELECT MAX(id) FROM ". DB_PREFIX ."pm_gallery_image");
                           
                           return $query->row["MAX(id)"];
-   }
-   protected function Replace($data){
+  }
+  protected function Replace($data){
                           $new = "";
                           for($i=10;$i<strlen($data);$i++){
                                             $new .=$data[$i];
                           }
                           return $new;
-   }
-   protected function getFileperms($dir){
+  }
+  protected function getFileperms($dir){
 	$dir_permission = substr( sprintf( '%o', fileperms( $dir ) ), -4 );
                        return $dir_permission;
-    }
-    private function getLogsPerms(){
+  }
+  private function getLogsPerms(){
 	$path	 = DIR_SYSTEM . 'logs/';
 	$dir_permission = substr( sprintf( '%o', fileperms( $path ) ), -4 );
                        return $dir_permission;
-   }
+  }
   protected function changeArrayKeys($array){
                           $new = array();
                          $keys = array_keys($array);
