@@ -169,7 +169,7 @@ class ControllerCatalogPMGallery extends Controller {
                                  
                               $data['folders'] = $this->model_catalog_pm_gallery->getFolders($pm_base,$pm_galleries);
                               $data['images'] = array();
-                             if($album){
+                              if($album){
                                
                                    $this->model_catalog_pm_gallery->updateFiles($album,'../'.$pm_galleries,$module_id);   
                                    $data['images'] = $this->model_catalog_pm_gallery->getDatabaseFolder($album);
@@ -182,13 +182,8 @@ class ControllerCatalogPMGallery extends Controller {
                                       
                      if(isset($this->request->get['file']) && $this->validateForm()){
 
-                                                    $done =  $this->model_catalog_pm_gallery->deleteImage($this->request->get,$pm_fr_gallery);
-             
-                                     if($done == 'Error'){
-                                        $data['error_permission'] = sprintf($this->language->get('text_error_permission'),$done);
-                                      } else{
-                                        $data['error_permission']  = '';
-                                      }
+                                                    $this->model_catalog_pm_gallery->deleteImage($this->request->get);
+
                      }
                    $to_database = $this->model_catalog_pm_gallery->getDatabaseImages($album);
                    $data['no_thumbs'] = "";
